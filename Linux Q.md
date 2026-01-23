@@ -1,9 +1,11 @@
-🧭 Linux Interview Syllabus — Beginner to Intermediate (DevOps-Focused)
 
-🟩 MODULE 1: Linux Fundamentals (Core Concepts) — [100–90% ask rate]
 
-Weight: 25% of interview | Difficulty: Easy
-Purpose: Tests understanding of Linux environment, shell, and file basics.
+Linux DevOps Interview Questions — Module-wise, Level & Sequence
+
+
+---
+
+🟩 MODULE 1: Linux Fundamentals (Core Concepts) — Easy / 100–90% ask rate
 
 1. What is Linux? Difference between Linux, UNIX, and Windows?
 
@@ -35,352 +37,402 @@ Purpose: Tests understanding of Linux environment, shell, and file basics.
 10. What is the difference between /root and /home directories?
 
 
+11. What is a Linux Kernel? Why is it important?
 
 
----
-
-🟨 MODULE 2: File Management & Permissions — [95–85% ask rate]
-
-Weight: 15% | Difficulty: Easy–Moderate
-Purpose: Checks command fluency and understanding of file access control.
-
-11. What are file permissions (rwx)? Explain chmod 755 vs 777.
+12. What is a shell in Linux, and how is it different from bash?
 
 
-12. What is the difference between a Soft Link and a Hard Link?
+13. Basic components of Linux OS
 
 
-13. How do you change file ownership and group (chown, chgrp)?
+14. What is the init process in Linux?
 
 
-14. What is umask? What does it control?
+15. What is root?
 
 
-15. What is the sticky bit and where is it used (/tmp example)?
+16. Check hostname
 
 
-16. What are /etc/passwd, /etc/shadow, and /etc/group used for?
+17. Check current user
 
 
-17. What is the difference between su and sudo?
-
-
-18. How do you safely edit the sudoers file (visudo)?
-
-
-19. How do you find recently modified files (find -mtime)?
-
-
-20. What are hidden files, and how to view them (ls -a)?
+18. Check current working directory
 
 
 
 
 ---
 
-🟧 MODULE 3: Process & System Management — [100–90% ask rate]
+🟨 MODULE 2: File Management & Permissions — Easy–Moderate / 95–85% ask rate
 
-Weight: 20% | Difficulty: Moderate
-Purpose: Evaluates ability to monitor and control system processes.
-
-21. What is a process?
+19. What are file permissions (rwx)? Explain chmod 755 vs 777.
 
 
-22. Difference between process and thread.
+20. Types of permissions (Read, Write, Execute)
 
 
-23. Explain ps, top, and htop commands.
+21. What is the difference between a Soft Link and a Hard Link?
 
 
-24. What is a Zombie process and how do you handle it?
+22. How do you change file ownership and group (chown, chgrp)?
 
 
-25. Difference between kill and kill -9.
+23. What is umask? What does it control?
 
 
-26. How do you run a process in the background (&, nohup, screen)?
+24. What is the sticky bit and where is it used (/tmp example)?
 
 
-27. What is the purpose of nice and renice?
+25. What are /etc/passwd, /etc/shadow, and /etc/group used for?
 
 
-28. How to check which process is consuming the most CPU/memory?
+26. What is the difference between su and sudo?
 
 
-29. What is load average? Interpret uptime output.
+27. How do you safely edit the sudoers file (visudo)?
 
 
-30. Explain swap memory and when it’s used.
+28. How do you find recently modified files (find -mtime)?
 
 
+29. What are hidden files, and how to view them (ls -a)?
 
 
----
-
-🟦 MODULE 4: Disk, Filesystem & Storage — [95–85% ask rate]
-
-Weight: 15% | Difficulty: Moderate
-Purpose: Assesses command-line ability to manage disk space and storage.
-
-31. How do you check disk usage (df, du)?
+30. Change file permissions using chmod
 
 
-32. “No space left on device” but disk has space — what’s the issue (inodes)?
+31. Permissions to execute a script
 
 
-33. What is the difference between disk full vs inode full?
-
-
-34. How do you check disk partitions (lsblk, fdisk -l)?
-
-
-35. What is /etc/fstab and its purpose?
-
-
-36. How do you check if a disk is mounted?
-
-
-37. How to mount/unmount file systems manually?
-
-
-38. What is LVM? Advantages of using it?
-
-
-39. Difference between ext4, xfs, and btrfs.
-
-
-40. How to find which directory is using the most space?
+32. Create/manage symbolic links
 
 
 
 
 ---
 
-🟫 MODULE 5: Networking & Connectivity — [90–80% ask rate]
+🟧 MODULE 3: Process & System Management — Moderate / 100–90% ask rate
 
-Weight: 10% | Difficulty: Moderate
-Purpose: Tests ability to debug connections and network configuration.
-
-41. How do you check which ports are listening (netstat, ss, lsof)?
+33. What is a process?
 
 
-42. How to check if a remote server is reachable on a port (telnet, nc)?
+34. Difference between process and thread.
 
 
-43. What is the SSH config file location?
+35. Explain ps, top, and htop commands.
 
 
-44. How do SSH keys work? (Public/private key auth)
+36. What is a Zombie process and how do you handle it?
 
 
-45. What is the difference between curl and wget?
+37. Difference between kill and kill -9
 
 
-46. How do you check and restart the network service?
+38. How do you run a process in the background (&, nohup, screen)?
 
 
-47. Explain /etc/hosts and /etc/resolv.conf.
+39. What is the purpose of nice and renice?
 
 
-48. How do you add a static route temporarily and permanently?
+40. How to check which process is consuming the most CPU/memory?
 
 
-49. What is the 3-way TCP handshake?
+41. What is load average? Interpret uptime output.
 
 
-50. How to check DNS resolution issues?
+42. Explain swap memory and when it’s used.
 
 
+43. Check running processes
 
 
----
-
-🟥 MODULE 6: Service, Boot & Systemctl — [85–75% ask rate]
-
-Weight: 10% | Difficulty: Intermediate
-Purpose: Tests understanding of startup, services, and boot process.
-
-51. Explain Linux boot process (BIOS → GRUB → Kernel → Init → Systemd).
-
-
-52. What are systemd targets (runlevels)?
-
-
-53. Difference between systemctl and service commands.
-
-
-54. How to check the status of a service?
-
-
-55. How to debug a failed service (systemctl status, journalctl)?
-
-
-56. How to enable/disable services at boot?
-
-
-57. What is /etc/systemd/system used for?
-
-
-58. How to create your own custom systemd service?
-
-
-59. What is journald, and how to filter logs?
-
-
-60. What is log rotation, and how does logrotate work?
+44. Terminate process
 
 
 
 
 ---
 
-🟪 MODULE 7: Security, Users & Access — [80–70% ask rate]
+🟦 MODULE 4: Disk, Filesystem & Storage — Moderate / 95–85% ask rate
 
-Weight: 10% | Difficulty: Intermediate
-Purpose: Checks understanding of user management and security controls.
-
-61. How do you add or delete users/groups?
+45. How do you check disk usage (df, du)?
 
 
-62. How to lock or expire a user account?
+46. “No space left on device” but disk has space — what’s the issue (inodes)?
 
 
-63. How to add a user to sudoers?
+47. What is the difference between disk full vs inode full?
 
 
-64. What is SELinux/AppArmor, and how to check status?
+48. How do you check disk partitions (lsblk, fdisk -l)?
 
 
-65. How to check and set password aging policy?
+49. What is /etc/fstab and its purpose?
 
 
-66. What is chattr and how to make a file immutable?
+50. How do you check if a disk is mounted?
 
 
-67. How to secure SSH access (key-only login, disable root, etc.)?
+51. How to mount/unmount file systems manually?
 
 
-68. What is fail2ban?
+52. What is LVM? Advantages of using it?
 
 
-69. What is setuid, setgid, and sticky bit?
+53. Difference between ext4, xfs, and btrfs.
 
 
-70. How do you check open file descriptor limits (ulimit)?
+54. How to find which directory is using the most space?
 
 
+55. Read first or last N lines of a file (head, tail)
 
 
----
-
-🟨 MODULE 8: Scheduling & Automation — [80–70% ask rate]
-
-Weight: 5% | Difficulty: Easy
-Purpose: Tests basic automation skills.
-
-71. How to schedule tasks using cron?
+56. Combine two files (cat file1 file2 > file3)
 
 
-72. Difference between cron and at?
+57. Find file type
 
 
-73. How to list existing cron jobs (crontab -l)?
-
-
-74. How to schedule a backup script daily?
-
-
-75. What is the difference between cron and systemd timers?
-
-
-76. How to debug a failed cron job?
-
-
-77. How to use sleep, watch, or loops for repetition?
+58. Sort file content
 
 
 
 
 ---
 
-🟩 MODULE 9: Shell Scripting (Essential for DevOps) — [75–65% ask rate]
+🟫 MODULE 5: Networking & Connectivity — Moderate / 90–80% ask rate
 
-Weight: 5% | Difficulty: Intermediate
-Purpose: Evaluates automation and problem-solving in Bash.
-
-78. How to pass arguments to a shell script?
+59. How do you check which ports are listening (netstat, ss, lsof)?
 
 
-79. Difference between $*, $@, "$*" and "$@".
+60. How to check if a remote server is reachable on a port (telnet, nc)?
 
 
-80. How do you check command exit status ($?)?
+61. What is the SSH config file location?
 
 
-81. What are set -e, set -u, set -o pipefail used for?
+62. How do SSH keys work? (Public/private key auth)
 
 
-82. Write a script to monitor disk usage > 80%.
+63. What is the difference between curl and wget?
 
 
-83. How to run background jobs in a script and capture their PID?
+64. How do you check and restart the network service?
 
 
-84. How to log script output with timestamps?
+65. Explain /etc/hosts and /etc/resolv.conf.
 
 
-85. How to read a config file line by line in bash?
+66. How do you add a static route temporarily and permanently?
 
 
+67. What is the 3-way TCP handshake?
 
 
----
-
-🟦 MODULE 10: Troubleshooting & Scenarios — [100–90% ask rate]
-
-Weight: 15% | Difficulty: Moderate–High
-Purpose: Tests real-world problem-solving (most asked in interviews).
-
-86. “Server is slow.” How do you investigate?
+68. How to check DNS resolution issues?
 
 
-87. “Disk is full.” How do you find and fix the issue?
+69. Check IP/Server accessibility (ping IP_address)
 
 
-88. “Service is not starting.” How do you debug?
+70. Get info about ports (netstat -l)
 
 
-89. “Can’t connect to port 80.” How to troubleshoot step-by-step?
+71. Check specific open port (netstat -putan | grep port_number)
 
 
-90. “Website is loading slowly.” How to debug performance?
+72. Check network interfaces (ifconfig or netstat)
 
 
-91. “SSH login is delayed.” How do you fix it?
-
-
-92. “High load average but CPU idle.” What could cause it?
-
-
-93. “Memory usage is high.” How do you find the culprit?
-
-
-94. “Logs not updating.” How do you check permissions and rotation?
-
-
-95. “Cron job didn’t run.” How do you debug?
+73. Telnet vs SSH
 
 
 
 
 ---
 
-Priority	Modules	Study Focus	Weight
+🟥 MODULE 6: Service, Boot & Systemctl — Intermediate / 85–75% ask rate
 
-🔥 High	Fundamentals, Process, Disk, Troubleshooting	1, 3, 4, 10	55%
-⚙️ Medium	Networking, Services, Permissions	2, 5, 6	30%
-🧰 Low	Security, Cron, Scripting	7, 8, 9	15%
+74. Explain Linux boot process (BIOS → GRUB → Kernel → Init → Systemd)
+
+
+75. What are systemd targets (runlevels)?
+
+
+76. Difference between systemctl and service commands
+
+
+77. How to check the status of a service?
+
+
+78. How to debug a failed service (systemctl status, journalctl)?
+
+
+79. How to enable/disable services at boot?
+
+
+80. What is /etc/systemd/system used for?
+
+
+81. How to create your own custom systemd service?
+
+
+82. What is journald, and how to filter logs?
+
+
+83. What is log rotation, and how does logrotate work?
+
+
+84. Daemon service
+
+
+85. Check service status
+
+
+86. Start/Stop service
+
 
 
 
 ---
+
+🟪 MODULE 7: Security, Users & Access — Intermediate / 80–70% ask rate
+
+87. How do you add or delete users/groups?
+
+
+88. How to lock or expire a user account?
+
+
+89. How to add a user to sudoers?
+
+
+90. What is SELinux/AppArmor, and how to check status?
+
+
+91. How to check and set password aging policy?
+
+
+92. What is chattr and how to make a file immutable?
+
+
+93. How to secure SSH access (key-only login, disable root, etc.)?
+
+
+94. What is fail2ban?
+
+
+95. What is setuid, setgid, and sticky bit?
+
+
+96. How do you check open file descriptor limits (ulimit)?
+
+
+
+
+---
+
+🟨 MODULE 8: Scheduling & Automation — Easy / 80–70% ask rate
+
+97. How to schedule tasks using cron?
+
+
+98. Difference between cron and at?
+
+
+99. How to list existing cron jobs (crontab -l)?
+
+
+100. How to schedule a backup script daily?
+
+
+101. What is the difference between cron and systemd timers?
+
+
+102. How to debug a failed cron job?
+
+
+103. How to use sleep, watch, or loops for repetition?
+
+
+104. Automate tasks/scripts (cron/at)
+
+
+105. Check scheduled cron jobs
+
+
+106. Cron job format
+
+
+107. Troubleshoot cron job
+
+
+
+
+---
+
+🟩 MODULE 9: Shell Scripting (Essential for DevOps) — Intermediate / 75–65% ask rate
+
+108. How to pass arguments to a shell script?
+
+
+109. Difference between $, $@, "$" and "$@"
+
+
+110. How do you check command exit status ($?)?
+
+
+111. What are set -e, set -u, set -o pipefail used for?
+
+
+112. Write a script to monitor disk usage > 80%
+
+
+113. How to run background jobs in a script and capture their PID?
+
+
+114. How to log script output with timestamps?
+
+
+115. How to read a config file line by line in bash?
+
+
+
+
+---
+
+🟦 MODULE 10: Troubleshooting & Scenarios — Moderate–High / 100–90% ask rate
+
+116. “Server is slow.” How do you investigate?
+
+
+117. “Disk is full.” How do you find and fix the issue?
+
+
+118. “Service is not starting.” How do you debug?
+
+
+119. “Can’t connect to port 80.” How to troubleshoot step-by-step?
+
+
+120. “Website is loading slowly.” How to debug performance?
+
+
+121. “SSH login is delayed.” How do you fix it?
+
+
+122. “High load average but CPU idle.” What could cause it?
+
+
+123. “Memory usage is high.” How do you find the culprit?
+
+
+124. “Logs not updating.” How do you check permissions and rotation?
+
+
+125. “Cron job didn’t run.” How do you debug?
+
+
