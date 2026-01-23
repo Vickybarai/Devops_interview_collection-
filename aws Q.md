@@ -5,7 +5,6 @@
 
 Sequence-wise | Topic-wise | Level-wise | Type-wise | Weighted view (no table)
 
-
 ---
 
 Section 1 – Must-Know Core Concepts (Level 1 – Beginner)
