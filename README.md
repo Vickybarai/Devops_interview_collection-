@@ -1,7 +1,3 @@
-# Devops_interview_collection-
-All type of question 
-___
-
 # 🟢 **LINUX – Beginner Level (Must-Know)**
 
 *(If you don’t know these → rejection is common)*
