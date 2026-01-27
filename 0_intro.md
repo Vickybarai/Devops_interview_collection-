@@ -1,0 +1,1 @@
+“I’m currently based in Nagpur and completed my BCA from RTMNU.”
