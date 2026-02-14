@@ -42,63 +42,101 @@ Choose your learning path below or browse by category:
 ### Module 1: Linux Fundamentals ⭐
 > Core concepts every DevOps professional must know
 
-**Topics Covered:**
-- Linux vs UNIX vs Windows
-- Linux Architecture (Kernel, Shell, User Space)
-- Command execution flow
-- Environment variables
-- File system paths
-- Directory structure (/bin, /etc, /home, /var)
-- Shell types (bash, sh, zsh)
-- Shell vs Kernel
-- File system hierarchy
-- /root vs /home
-- Linux Kernel components
-- Shell vs Bash
-- OS components
-- init process
-- Root user and directory
-- Hostname
-- User management
-- Working directory
-
 **📄 [Module 1: Linux Fundamentals](Linux/Module1-Linux-Fundamentals.md)**
 
-**Questions:** 18
-**Commands Covered:** 50+
+**Questions:** 18 | **Commands Covered:** 50+
+
+**📋 Question Index:**
+1. [What is Linux? Difference between Linux, UNIX, and Windows.](Linux/Module1-Linux-Fundamentals.md#q1-what-is-linux-difference-between-linux-unix-and-windows) - OS comparison
+2. [Explain Linux Architecture (Kernel, Shell, User Space)](Linux/Module1-Linux-Fundamentals.md#q2-explain-linux-architecture-kernel-shell-user-space) - System architecture
+3. [What Happens When You Type a Command and Press Enter?](Linux/Module1-Linux-Fundamentals.md#q3-what-happens-when-you-type-a-command-and-press-enter) - Command flow
+4. [What are Environment Variables? How to View/Set Them?](Linux/Module1-Linux-Fundamentals.md#q4-what-are-environment-variables-how-to-viewset-them) - Environment setup
+5. [What are Absolute vs Relative Paths?](Linux/Module1-Linux-Fundamentals.md#q5-what-are-absolute-vs-relative-paths) - Path types
+6. [Explain Linux Directory Structure (/, /bin, /etc, /home, /var)](Linux/Module1-Linux-Fundamentals.md#q6-explain-linux-directory-structure--bin-etchomevar) - File system
+7. [What are the Types of Shells in Linux?](Linux/Module1-Linux-Fundamentals.md#q7-what-are-the-types-of-shells-in-linux) - Shell types
+8. [What is the Difference Between Shell and Kernel?](Linux/Module1-Linux-Fundamentals.md#q8-what-is-the-difference-between-shell-and-kernel) - Shell vs Kernel
+9. [Explain File System Hierarchy — Where are Configs, Binaries, and Logs Kept?](Linux/Module1-Linux-Fundamentals.md#q9-explain-file-system-hierarchy---where-are-configs-binaries-and-logs-kept) - Hierarchy
+10. [What is the Difference Between /root and /home Directories?](Linux/Module1-Linux-Fundamentals.md#q10-what-is-the-difference-between-root-and-home-directories) - Root vs Home
+11. [What is a Linux Kernel? Why is it Important?](Linux/Module1-Linux-Fundamentals.md#q11-what-is-a-linux-kernel-why-is-it-important) - Kernel concepts
+12. [What is a Shell in Linux, and How is It Different from bash?](Linux/Module1-Linux-Fundamentals.md#q12-what-is-a-shell-in-linux-and-how-is-it-different-from-bash) - Shell types
+13. [Basic Components of Linux OS](Linux/Module1-Linux-Fundamentals.md#q13-basic-components-of-linux-os) - OS components
+14. [What is the init Process in Linux?](Linux/Module1-Linux-Fundamentals.md#q14-what-is-the-init-process-in-linux) - Init process
+15. [What is Root?](Linux/Module1-Linux-Fundamentals.md#q15-what-is-root) - Root user and directory
+16. [Check Hostname](Linux/Module1-Linux-Fundamentals.md#q16-check-hostname) - Hostname command
+17. [Check Current User](Linux/Module1-Linux-Fundamentals.md#q17-check-current-user) - User commands
+18. [Check Current Working Directory](Linux/Module1-Linux-Fundamentals.md#q18-check-current-working-directory) - pwd command
 
 ---
 
-### Module 2: File Management & Permissions ⭐ NEW!
+### Module 2: File Management & Permissions ⭐
 > Master file operations and access control
-
-**Topics Covered:**
-- File permissions (rwx)
-- chmod 755 vs 777
-- Soft link vs Hard link
-- chown and chgrp
-- umask configuration
-- Sticky bit (/tmp example)
-- /etc/passwd, /etc/shadow, /etc/group
-- su vs sudo
-- visudo (safe sudoers editing)
-- Finding recent files (find -mtime)
-- Hidden files (ls -a)
-- Changing file permissions
-- Execute permissions for scripts
-- Symbolic links
 
 **📄 [Module 2: File Management & Permissions](Linux/Module2-File-Management-Permissions.md)**
 
-**Questions:** 14
-**Commands Covered:** 70+
+**Questions:** 14 | **Commands Covered:** 70+
+
+**📋 Question Index:**
+1. [What are File Permissions (rwx)?](Linux/Module2-File-Management-Permissions.md#q1-what-are-file-permissions-rwx-explain-chmod-755-vs-777) - chmod 755 vs 777
+2. [What are the Types of Permissions (Read, Write, Execute)?](Linux/Module2-File-Management-Permissions.md#q2-types-of-permissions-read-write-execute) - rwx explained
+3. [What is the Difference Between a Soft Link and a Hard Link?](Linux/Module2-File-Management-Permissions.md#q3-what-is-the-difference-between-a-soft-link-and-a-hard-link) - ln commands
+4. [How Do You Change File Ownership (chown, chgrp)?](Linux/Module2-File-Management-Permissions.md#q4-how-do-you-change-file-ownership-chown-chgrp) - User/group management
+5. [What is Umask? What Does It Control?](Linux/Module2-File-Management-Permissions.md#q5-what-is-umask-what-does-it-control) - Default permissions
+6. [What is the Sticky Bit and Where is It Used?](Linux/Module2-File-Management-Permissions.md#q6-what-is-the-sticky-bit-and-where-is-it-used-tmp-example) - /tmp example
+7. [What are /etc/passwd, /etc/shadow, and /etc/group Used For?](Linux/Module2-File-Management-Permissions.md#q7-what-are-etcpasswd-etcshadow-and-etcgroup-used-for) - User management files
+8. [What is the Difference Between su and sudo?](Linux/Module2-File-Management-Permissions.md#q8-what-is-the-difference-between-su-and-sudo) - Privilege escalation
+9. [How Do You Safely Edit the sudoers File (visudo)?](Linux/Module2-File-Management-Permissions.md#q9-how-do-you-safely-edit-the-sudoers-file-visudo) - sudo configuration
+10. [How Do You Find Recently Modified Files (find -mtime)?](Linux/Module2-File-Management-Permissions.md#q10-how-do-you-find-recently-modified-files-find--mtime) - Time-based search
+11. [What Are Hidden Files and How to View Them (ls -a)?](Linux/Module2-File-Management-Permissions.md#q11-what-are-hidden-files-and-how-to-view-them-ls--a) - Dotfiles
+12. [How to Change File Permissions (chmod)?](Linux/Module2-File-Management-Permissions.md#q12-how-to-change-file-permissions-chmod) - Permission management
+13. [How to Give Execute Permissions to a Script?](Linux/Module2-File-Management-Permissions.md#q13-how-to-give-execute-permissions-to-a-script) - Script execution
+14. [How to Create and Manage Symbolic Links?](Linux/Module2-File-Management-Permissions.md#q14-how-to-create-and-manage-symbolic-links) - Soft links
+
+---
+
+### Module 3: Process & System Management ⭐
+> Monitor and manage system processes
+
+**📄 [Module 3: Process & System Management](Linux/Module3-Process-System-Management.md)**
+
+**Questions:** 12 | **Commands Covered:** 60+
+
+**📋 Question Index:**
+1. [What is a Process?](Linux/Module3-Process-System-Management.md#q1-what-is-a-process) - Process basics
+2. [Difference Between Process and Thread.](Linux/Module3-Process-System-Management.md#q2-difference-between-process-and-thread) - Multi-threading
+3. [Explain ps, top, and htop Commands.](Linux/Module3-Process-System-Management.md#q3-explain-ps-top-and-htop-commands) - Process monitoring
+4. [What is a Zombie Process and How to Handle It?](Linux/Module3-Process-System-Management.md#q4-what-is-a-zombie-process-and-how-to-handle-it) - Zombie processes
+5. [Difference Between kill and kill -9.](Linux/Module3-Process-System-Management.md#q5-difference-between-kill-and-kill--9) - Process termination
+6. [How to Run Process in Background (&, nohup, screen)?](Linux/Module3-Process-System-Management.md#q6-how-to-run-process-in-background--nohup-screen) - Background jobs
+7. [What is Purpose of nice and renice?](Linux/Module3-Process-System-Management.md#q7-what-is-purpose-of-nice-and-renice) - Process priority
+8. [How to Check Which Process Consumes Most CPU/Memory?](Linux/Module3-Process-System-Management.md#q8-how-to-check-which-process-consumes-most-cpumemory) - Resource monitoring
+9. [What is Load Average? Interpret uptime Output.](Linux/Module3-Process-System-Management.md#q9-what-is-load-average-interpret-uptime-output) - System load
+10. [Explain Swap Memory and When It's Used.](Linux/Module3-Process-System-Management.md#q10-explain-swap-memory-and-when-its-used) - Virtual memory
+11. [Check Running Processes.](Linux/Module3-Process-System-Management.md#q11-check-running-processes) - Process listing
+12. [Terminate Process.](Linux/Module3-Process-System-Management.md#q12-terminate-process) - Kill processes
+
+---
+
+### Module 4: Disk, Filesystem & Storage ⭐
+> Manage disk space, partitions, and filesystems
+
+**📄 [Module 4: Disk, Filesystem & Storage](Linux/Module4-Disk-Filesystem-Storage.md)**
+
+**Questions:** 8 | **Commands Covered:** 80+
+
+**📋 Question Index:**
+1. [Difference Between df and du Commands.](Linux/Module4-Disk-Filesystem-Storage.md#q1-difference-between-df-and-du-commands) - Disk usage commands
+2. [How to Check if Disk is Full or Inode is Full?](Linux/Module4-Disk-Filesystem-Storage.md#q2-how-to-check-if-disk-is-full-or-inode-is-full) - Space troubleshooting
+3. [How to Check Disk Partitions (lsblk, fdisk)?](Linux/Module4-Disk-Filesystem-Storage.md#q3-how-to-check-disk-partitions-lsblk-fdisk) - Disk partitions
+4. [What is /etc/fstab and How is It Used?](Linux/Module4-Disk-Filesystem-Storage.md#q4-what-is-etcfstab-and-how-is-it-used) - Mount configuration
+5. [How to Mount and Unmount Filesystems?](Linux/Module4-Disk-Filesystem-Storage.md#q5-how-to-mount-and-unmount-filesystems) - Mount management
+6. [What is LVM (Logical Volume Manager)?](Linux/Module4-Disk-Filesystem-Storage.md#q6-what-is-lvm-logical-volume-manager) - LVM concepts
+7. [Different Types of Filesystems (ext4, xfs, btrfs).](Linux/Module4-Disk-Filesystem-Storage.md#q7-different-types-of-filesystems-ext4-xfs-btrfs) - Filesystem types
+8. [How to Find Large Files and Directories?](Linux/Module4-Disk-Filesystem-Storage.md#q8-how-to-find-large-files-and-directories) - Space cleanup
 
 ---
 
 ### Upcoming Linux Modules 🚧
 
-- **Module 3:** Process & System Management
-- **Module 4:** Disk, Filesystem & Storage
 - **Module 5:** Networking & Connectivity
 - **Module 6:** Service, Boot & Systemctl
 - **Module 7:** Security, Users & Access
@@ -352,16 +390,18 @@ Choose your learning path below or browse by category:
 ## 📈 Progress Tracking
 
 ### Linux Modules
-- [x] Module 1: Linux Fundamentals
-- [x] Module 2: File Management & Permissions
-- [ ] Module 3: Process & System Management
-- [ ] Module 4: Disk, Filesystem & Storage
+- [x] Module 1: Linux Fundamentals (18 questions)
+- [x] Module 2: File Management & Permissions (14 questions)
+- [x] Module 3: Process & System Management (12 questions)
+- [x] Module 4: Disk, Filesystem & Storage (8 questions)
 - [ ] Module 5: Networking & Connectivity
 - [ ] Module 6: Service, Boot & Systemctl
 - [ ] Module 7: Security, Users & Access
 - [ ] Module 8: Scheduling & Automation
 - [ ] Module 9: Shell Scripting
 - [ ] Module 10: Troubleshooting & Scenarios
+
+**Total Linux Questions Completed:** 52
 
 ### Other Topics
 - [ ] AWS Fundamentals
@@ -413,6 +453,12 @@ For questions or clarifications:
 ---
 
 **Last Updated:** January 15, 2024
+
+**📊 Repository Stats:**
+- **Total Modules:** 4 (Linux)
+- **Total Questions:** 52
+- **Total Commands:** 260+
+- **Quick Links:** 52 direct links to questions
 
 **Happy Learning! 🚀**
 
