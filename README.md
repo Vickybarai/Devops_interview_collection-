@@ -158,6 +158,25 @@ Choose your learning path below or browse by category:
 13. [How to Capture and Analyze Network Traffic (tcpdump, Wireshark)?](Linux/Module5-Networking-Connectivity.md#q13-how-to-capture-and-analyze-network-traffic-tcpdump-wireshark) - Packet capture
 14. [How to Check Network Interface Details and Configuration?](Linux/Module5-Networking-Connectivity.md#q14-how-to-check-network-interface-details-and-configuration) - Interface details
 
+### Module 5: Networking & Connectivity ⭐
+> Master network configuration and troubleshooting
+
+**📄 [Module 5: Networking & Connectivity](Linux/Module5-Networking-Connectivity.md)**
+
+**Questions:** 10 | **Commands Covered:** 60+
+
+**📋 Question Index:**
+1. [How to Check IP Address and Network Configuration?](Linux/Module5-Networking-Connectivity.md#q1-how-to-check-ip-address-and-network-configuration) - ip, ifconfig
+2. [How to Check Open Ports and Listening Services?](Linux/Module5-Networking-Connectivity.md#q2-how-to-check-open-ports-and-listening-services) - ss, netstat
+3. [Explain /etc/hosts and /etc/resolv.conf Files.](Linux/Module5-Networking-Connectivity.md#q3-explain-etchosts-and-etcreolvconf-files) - DNS configuration
+4. [How to Connect to Remote Server via SSH?](Linux/Module5-Networking-Connectivity.md#q4-how-to-connect-to-remote-server-via-ssh) - SSH connection
+5. [How to Check Network Connectivity (ping, traceroute)?](Linux/Module5-Networking-Connectivity.md#q5-how-to-check-network-connectivity-ping-traceroute) - Network testing
+6. [How to Find Which Process is Using a Port?](Linux/Module5-Networking-Connectivity.md#q6-how-to-find-which-process-is-using-a-port) - Port troubleshooting
+7. [How to Check Network Connections?](Linux/Module5-Networking-Connectivity.md#q7-how-to-check-network-connections) - Connection monitoring
+8. [How to View ARP Table?](Linux/Module5-Networking-Connectivity.md#q8-how-to-view-arp-table) - MAC addresses
+9. [How to View Routing Table?](Linux/Module5-Networking-Connectivity.md#q9-how-to-view-routing-table) - Network routing
+10. [How to Download Files from Internet (wget, curl)?](Linux/Module5-Networking-Connectivity.md#q10-how-to-download-files-from-internet-wget-curl) - File download
+
 ---
 
 ### Upcoming Linux Modules 🚧
@@ -418,14 +437,14 @@ Choose your learning path below or browse by category:
 - [x] Module 2: File Management & Permissions (14 questions)
 - [x] Module 3: Process & System Management (12 questions)
 - [x] Module 4: Disk, Filesystem & Storage (8 questions)
-- [x] Module 5: Networking & Connectivity (14 questions)
+- [x] Module 5: Networking & Connectivity (10 questions)
 - [ ] Module 6: Service, Boot & Systemctl
 - [ ] Module 7: Security, Users & Access
 - [ ] Module 8: Scheduling & Automation
 - [ ] Module 9: Shell Scripting
 - [ ] Module 10: Troubleshooting & Scenarios
 
-**Total Linux Questions Completed:** 66
+**Total Linux Questions Completed:** 62
 
 ### Other Topics
 - [ ] AWS Fundamentals
@@ -480,9 +499,9 @@ For questions or clarifications:
 
 **📊 Repository Stats:**
 - **Total Modules:** 5 (Linux)
-- **Total Questions:** 66
-- **Total Commands:** 350+
-- **Quick Links:** 66 direct links to questions
+- **Total Questions:** 62
+- **Total Commands:** 320+
+- **Quick Links:** 62 direct links to questions
 
 **Happy Learning! 🚀**
 
