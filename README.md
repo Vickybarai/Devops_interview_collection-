@@ -136,46 +136,23 @@ Choose your learning path below or browse by category:
 ---
 
 ### Module 5: Networking & Connectivity ⭐
-> Configure, troubleshoot, and monitor network connections
-
-**📄 [Module 5: Networking & Connectivity](Linux/Module5-Networking-Connectivity.md)**
-
-**Questions:** 14 | **Commands Covered:** 90+
-
-**📋 Question Index:**
-1. [How to Configure Network Interface (ip, ifconfig, nmcli)?](Linux/Module5-Networking-Connectivity.md#q1-how-to-configure-network-interface-ip-ifconfig-nmcli) - Network config
-2. [How to Check Open Ports and List Services (netstat, ss)?](Linux/Module5-Networking-Connectivity.md#q2-how-to-check-open-ports-and-list-services-netstat-ss) - Port monitoring
-3. [How Does DNS Resolution Work (/etc/hosts, /etc/resolv.conf)?](Linux/Module5-Networking-Connectivity.md#q3-how-does-dns-resolution-work-etchosts-etcresolvconf) - DNS setup
-4. [SSH Keys and Authentication - How Does It Work?](Linux/Module5-Networking-Connectivity.md#q4-ssh-keys-and-authentication---how-does-it-work) - SSH access
-5. [How to Configure Firewall (iptables, ufw, firewalld)?](Linux/Module5-Networking-Connectivity.md#q5-how-to-configure-firewall-iptables-ufw-firewalld) - Firewall config
-6. [Network Troubleshooting Commands (ping, traceroute, mtr)?](Linux/Module5-Networking-Connectivity.md#q6-network-troubleshooting-commands-ping-traceroute-mtr) - Network debug
-7. [How to Find Process Using Specific Port?](Linux/Module5-Networking-Connectivity.md#q7-how-to-find-process-using-specific-port) - Port process
-8. [How to Check Network Connections and Traffic?](Linux/Module5-Networking-Connectivity.md#q8-how-to-check-network-connections-and-traffic) - Traffic monitoring
-9. [What is ARP Table and How to View It?](Linux/Module5-Networking-Connectivity.md#q9-what-is-arp-table-and-how-to-view-it) - ARP table
-10. [How to Check and Modify Routing Table?](Linux/Module5-Networking-Connectivity.md#q10-how-to-check-and-modify-routing-table) - Routing
-11. [How to Monitor Bandwidth and Network Performance?](Linux/Module5-Networking-Connectivity.md#q11-how-to-monitor-bandwidth-and-network-performance) - Bandwidth
-12. [DNS Troubleshooting (dig, nslookup, host)?](Linux/Module5-Networking-Connectivity.md#q12-dns-troubleshooting-dig-nslookup-host) - DNS debug
-13. [How to Capture and Analyze Network Traffic (tcpdump, Wireshark)?](Linux/Module5-Networking-Connectivity.md#q13-how-to-capture-and-analyze-network-traffic-tcpdump-wireshark) - Packet capture
-14. [How to Check Network Interface Details and Configuration?](Linux/Module5-Networking-Connectivity.md#q14-how-to-check-network-interface-details-and-configuration) - Interface details
-
-### Module 5: Networking & Connectivity ⭐
 > Master network configuration and troubleshooting
 
 **📄 [Module 5: Networking & Connectivity](Linux/Module5-Networking-Connectivity.md)**
 
-**Questions:** 10 | **Commands Covered:** 60+
+**Questions:** 10 | **Commands Covered:** 80+
 
 **📋 Question Index:**
-1. [How to Check IP Address and Network Configuration?](Linux/Module5-Networking-Connectivity.md#q1-how-to-check-ip-address-and-network-configuration) - ip, ifconfig
-2. [How to Check Open Ports and Listening Services?](Linux/Module5-Networking-Connectivity.md#q2-how-to-check-open-ports-and-listening-services) - ss, netstat
-3. [Explain /etc/hosts and /etc/resolv.conf Files.](Linux/Module5-Networking-Connectivity.md#q3-explain-etchosts-and-etcreolvconf-files) - DNS configuration
-4. [How to Connect to Remote Server via SSH?](Linux/Module5-Networking-Connectivity.md#q4-how-to-connect-to-remote-server-via-ssh) - SSH connection
-5. [How to Check Network Connectivity (ping, traceroute)?](Linux/Module5-Networking-Connectivity.md#q5-how-to-check-network-connectivity-ping-traceroute) - Network testing
-6. [How to Find Which Process is Using a Port?](Linux/Module5-Networking-Connectivity.md#q6-how-to-find-which-process-is-using-a-port) - Port troubleshooting
-7. [How to Check Network Connections?](Linux/Module5-Networking-Connectivity.md#q7-how-to-check-network-connections) - Connection monitoring
-8. [How to View ARP Table?](Linux/Module5-Networking-Connectivity.md#q8-how-to-view-arp-table) - MAC addresses
-9. [How to View Routing Table?](Linux/Module5-Networking-Connectivity.md#q9-how-to-view-routing-table) - Network routing
-10. [How to Download Files from Internet (wget, curl)?](Linux/Module5-Networking-Connectivity.md#q10-how-to-download-files-from-internet-wget-curl) - File download
+1. [What is IP Address, Subnet Mask, and Gateway?](Linux/Module5-Networking-Connectivity.md#q1-what-is-ip-address-subnet-mask-and-gateway) - Network basics
+2. [How to Check IP Address (ip, ifconfig)?](Linux/Module5-Networking-Connectivity.md#q2-how-to-check-ip-address-ip-ifconfig) - IP commands
+3. [How to Check Open Ports and Listening Services (netstat, ss)?](Linux/Module5-Networking-Connectivity.md#q3-how-to-check-open-ports-and-listening-services-netstat-ss) - Port monitoring
+4. [What is DNS and How to Troubleshoot DNS Issues?](Linux/Module5-Networking-Connectivity.md#q4-what-is-dns-and-how-to-troubleshoot-dns-issues) - DNS troubleshooting
+5. [How to Check Network Connectivity (ping, traceroute, mtr)?](Linux/Module5-Networking-Connectivity.md#q5-how-to-check-network-connectivity-ping-traceroute-mtr) - Connectivity tests
+6. [How to Find Which Process is Using a Port?](Linux/Module5-Networking-Connectivity.md#q6-how-to-find-which-process-is-using-a-port) - Port process mapping
+7. [What is SSH and How to Connect to Remote Server?](Linux/Module5-Networking-Connectivity.md#q7-what-is-ssh-and-how-to-connect-to-remote-server) - Remote access
+8. [How to View and Manage Network Connections?](Linux/Module5-Networking-Connectivity.md#q8-how-to-view-and-manage-network-connections) - Connection management
+9. [What is Firewall and How to Configure (iptables, ufw)?](Linux/Module5-Networking-Connectivity.md#q9-what-is-firewall-and-how-to-configure-iptables-ufw) - Firewall security
+10. [What is ARP and How to View ARP Table?](Linux/Module5-Networking-Connectivity.md#q10-what-is-arp-and-how-to-view-arp-table) - ARP table
 
 ---
 
