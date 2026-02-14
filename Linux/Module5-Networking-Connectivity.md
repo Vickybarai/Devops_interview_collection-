@@ -1,715 +1,966 @@
 # 🟦 MODULE 5: Networking & Connectivity
 
-> Complete interview preparation - Simple and Easy to Understand
+> Complete interview preparation for Networking & Connectivity - Freshers Perspective
 
 ---
 
-## Q1. How to Check IP Address and Network Configuration?
+## Q1. What is IP Address, Subnet Mask, and Gateway?
 
 ### **Definition**
-Commands to view and configure network interface settings on Linux.
+- **IP Address**: Unique identifier for a device on network
+- **Subnet Mask**: Defines which part of IP is network and which is host
+- **Gateway**: Device that connects your network to outside world (router)
 
-### **Explain (Detail)**
+### **Explain (Detail - Interview Answer)**
 
 **IP Address:**
-- Unique address that identifies device on network
-- Format: 192.168.1.10 (IPv4) or 2001:db8::1 (IPv6)
-- Assigned to each network interface
-
-**Network Interfaces:**
-- Physical: eth0, enp0s3 (ethernet cards)
-- Virtual: lo (loopback), docker0, virbr0
-- Wireless: wlan0, wlp3s0
-
-**Common Commands:**
-
-**ip command (modern):**
-- Newer tool, replaces ifconfig
-- More powerful
-- Standard on modern Linux
-
-**ifconfig command (old):**
-- Older tool, deprecated
-- Still widely used
-- Simpler for basic tasks
-
-**Key Information to Check:**
-- IP address
-- Netmask
-- Gateway
-- DNS servers
-- Interface status (up/down)
-
-**Real-World Example:**
 ```
-Need to check server's IP:
-1. Use ip addr show
-2. Find interface (eth0, ens33)
-3. Look for "inet" line
-4. IP: 192.168.1.100/24
-5. /24 = netmask (255.255.255.0)
+What is it?
+- Like a phone number for your computer
+- Every device on network has unique IP
+- Two types: IPv4 (192.168.1.1) and IPv6 (2001:db8::1)
+
+IPv4 Format: 192.168.1.100
+           │    │   │    └─ Host (unique on network)
+           │    │   └────── Host part
+           │    └────────── Network part
+           └─────────────── Address
+
+Example: 192.168.1.100
+- 192.168.1 = Network (same for all devices on same network)
+- 100 = Host (unique for each device)
+```
+
+**Subnet Mask:**
+```
+What is it?
+- Tells computer which part of IP is network vs host
+- Used to determine if another IP is on same network
+- Format: 255.255.255.0 or /24 (CIDR notation)
+
+Example: 192.168.1.100 with 255.255.255.0
+          192.168.1.100
+          255.255.255.0  (subnet mask)
+          -------------
+          192.168.1.  = Network part
+                  100 = Host part
+
+Why do we need it?
+Computer A: 192.168.1.100
+Computer B: 192.168.1.200
+Subnet mask: 255.255.255.0
+
+Both have same network part (192.168.1)
+So they are on same network → Communicate directly
+
+Computer C: 192.168.2.100
+Different network part (192.168.2)
+So they are on different network → Send via gateway
+```
+
+**Gateway (Default Gateway):**
+```
+What is it?
+- Router that connects your network to internet
+- Like exit door for your network
+- All traffic for outside goes through gateway
+
+Example:
+Your IP: 192.168.1.100
+Gateway:  192.168.1.1
+
+When you want to access google.com (not on your network):
+Your computer → Gateway (192.168.1.1) → Internet → Google.com
+
+Without gateway, you can only communicate on your local network
+```
+
+**Real-World Analogy:**
+```
+IP Address    = Your phone number
+Subnet Mask   = Area code (helps determine local vs long distance)
+Gateway       = Telephone exchange (connects you to outside world)
+
+Your phone: 011-1234-5678
+           │   │     │
+           │   │     └─ Unique number (IP host part)
+           │   └────── Local exchange (IP network part)
+           └────────── Country/Area code (Identifies your network)
+```
+
+**Interview Answer Example:**
+```
+Interviewer: Explain IP address, subnet mask, and gateway.
+
+Your Answer:
+"IP address is like a unique identifier for a device on a network,
+similar to a phone number. For example, 192.168.1.100 is an IPv4
+address where 192.168.1 is the network and 100 is the host.
+
+Subnet mask, like 255.255.255.0, tells the computer which part of
+the IP is the network and which is the host. It helps determine
+if another device is on the same network or not.
+
+Gateway is like the router or exit point to the internet. If I
+want to access something outside my local network, like a website,
+my computer sends that traffic through the gateway."
 ```
 
 ### **Use**
-- **Daily**: Check server IP for SSH/connections
-- **Troubleshooting**: Verify network configuration
-- **Setup**: Configure network on new server
-- **Debug**: Check if interface is up
-- **Documentation**: Record network settings
+- **IP Address**: Identify and communicate with devices on network
+- **Subnet Mask**: Determine if devices are on same network
+- **Gateway**: Connect to internet and other networks
+- **Network Administration**: Configure network settings
+- **Troubleshooting**: Check connectivity issues
 
 ### **Command**
 ```bash
-# ip command (modern)
-ip addr show                      # Show all interfaces
-ip addr show eth0                 # Show specific interface
-ip a                              # Short version
-ip a s eth0                       # Short with specific
+# View IP address and network configuration
+ip addr show            # Modern command (preferred)
+ip a                    # Short form
 
-# ifconfig command (old)
-ifconfig                          # Show all interfaces
-ifconfig eth0                     # Show specific interface
-ifconfig -a                       # Show all (including down)
+# View specific interface
+ip addr show eth0
+ip a show eth0
 
-# View IP address only
-ip addr show eth0 | grep inet
-hostname -I                       # All IP addresses
-hostname -I | awk '{print $1}'   # First IP only
-
-# View network interface status
-ip link show
-ip link show eth0
+# Old method (ifconfig)
+ifconfig                # May need to install net-tools
 ifconfig eth0
 
-# Bring interface up/down
-sudo ip link set eth0 up
-sudo ip link set eth0 down
-sudo ifconfig eth0 up
-sudo ifconfig eth0 down
+# View subnet mask
+ip addr show | grep netmask
+ifconfig | grep netmask
 
-# Assign IP address
-sudo ip addr add 192.168.1.100/24 dev eth0
-sudo ifconfig eth0 192.168.1.100
+# View gateway (default route)
+ip route show
+ip route show | grep default
+ip r                    # Short form
 
-# Delete IP address
-sudo ip addr del 192.168.1.100/24 dev eth0
+# View all network info
+ip -br addr             # Brief format
 
-# Check all network info
-ip addr show
-ifconfig -a
-
-# Real-world: Check server IP for SSH
+# Real-world example
+# Check your IP
 ip addr show | grep "inet "
-# Output:
-# inet 192.168.1.100/24 brd 192.168.1.255 scope global eth0
-# Now you can: ssh user@192.168.1.100
+
+# Check your gateway
+ip route | grep default
+
+# Check network configuration
+ip addr show
+ip route show
 ```
 
 ---
 
-## Q2. How to Check Open Ports and Listening Services?
+## Q2. How to Check IP Address (ip, ifconfig)?
 
 ### **Definition**
-Commands to see which ports are open and which services are listening on them.
+Commands to view and configure network interface IP addresses on Linux system.
 
-### **Explain (Detail)**
+### **Explain (Detail - Interview Answer)**
 
-**Port:**
-- Number (1-65535) that identifies specific service
-- Example: Port 22 = SSH, Port 80 = HTTP, Port 443 = HTTPS
-
-**Listening Service:**
-- Application waiting for connections
-- Bound to specific port
-- Examples: SSH on 22, Nginx on 80, MySQL on 3306
-
-**Common Commands:**
-
-**ss command (modern):**
-- Newer, faster
-- Shows socket statistics
-- Recommended for modern Linux
-
-**netstat command (old):**
-- Older tool
-- Still common
-- May need net-tools package
-
-**Port Numbers:**
+**ip Command (Modern - Recommended):**
 ```
-Well-known ports: 0-1023 (need root)
-Registered ports: 1024-49151
-Dynamic ports: 49152-65535
+What is it?
+- Modern Linux network configuration tool
+- Replaces older ifconfig, route commands
+- More powerful and flexible
+- Default on most modern Linux systems
 
-Common ports:
-22   - SSH
-80   - HTTP
-443  - HTTPS
-3306 - MySQL
-5432 - PostgreSQL
-6379 - Redis
-8080 - Alternative HTTP
+Basic syntax:
+ip [options] object [command]
+
+Common objects:
+- addr: IP addresses
+- link: Network interfaces
+- route: Routing table
 ```
 
-**Why Check Ports:**
-- Verify service is running
-- Troubleshoot connection issues
-- Check for security issues
-- Debug firewall problems
-
-**Real-World Example:**
-```
-SSH not working:
-1. Check if SSH service running: systemctl status sshd
-2. Check if port 22 open: ss -tlnp | grep 22
-3. If not running, start service: systemctl start sshd
-4. Check firewall: sudo ufw status
-```
-
-### **Use**
-- **Daily**: Verify services are running
-- **Troubleshooting**: Why can't connect to service?
-- **Security**: Check for unexpected open ports
-- **Setup**: Verify service listening on correct port
-- **Debug**: Connection refused errors
-
-### **Command**
+**ip addr Examples:**
 ```bash
-# ss command (modern)
-ss -tlnp                          # TCP listening with process
-ss -ulnp                          # UDP listening with process
-ss -tlnp | grep 22                # Check port 22
-ss -tlnp | grep nginx             # Check nginx
-
-# netstat command (old)
-netstat -tlnp                     # TCP listening with process
-netstat -ulnp                     # UDP listening with process
-netstat -tlnp | grep 22           # Check port 22
-netstat -an                       # All connections
-
-# View specific port
-ss -tlnp | grep :80
-netstat -tlnp | grep :80
-lsof -i :80                       # Using lsof
-
-# Check if port is open
-ss -tlnp | grep -q :22 && echo "Port 22 open" || echo "Port 22 closed"
-
-# Count open ports
-ss -tlnp | wc -l                 # Count listening ports
-ss -tlnp | grep -v 127.0.0.1     # Excluding localhost
-
-# Check specific service
-ss -tlnp | grep sshd
-ss -tlnp | grep nginx
-ss -tlnp | grep mysql
-
-# View all connections
-ss -tan                           # All TCP connections
-ss -uap                           # All UDP connections
-netstat -an                       # All connections
-
-# Show process using port
-ss -tlnp                         # Shows PID/Program name
-sudo lsof -i :80                 # More detailed
-
-# Real-world: Check why can't connect to web server
-# Step 1: Check if nginx running
-sudo systemctl status nginx
-
-# Step 2: Check if port 80 listening
-ss -tlnp | grep :80
-# If nothing, nginx not listening
-
-# Step 3: Check nginx config for port
-sudo grep -r "listen" /etc/nginx/
-
-# Step 4: Start nginx if needed
-sudo systemctl start nginx
-
-# Step 5: Verify port open
-ss -tlnp | grep :80
+# View all network interfaces with IPs
+ip addr show
+# Output:
+# 2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500
+#     inet 192.168.1.100/24 brd 192.168.1.255 scope global eth0
+#     │       │        │    │
+#     │       │        │    └─ Broadcast address
+#     │       │        └─────── Interface name
+#     │       └───────────────── IP address / Subnet mask
+#     └───────────────────────── Network interface
 ```
 
----
-
-## Q3. Explain /etc/hosts and /etc/resolv.conf Files.
-
-### **Definition**
-Configuration files for hostname resolution and DNS settings.
-
-### **Explain (Detail)**
-
-**DNS (Domain Name System):**
-- Translates domain names to IP addresses
-- Example: google.com → 142.250.185.238
-- Like phonebook for internet
-
-**/etc/hosts File:**
-- Local hostname resolution
-- Checked BEFORE DNS
-- Format: IP hostname aliases
-- Used for local overrides
-
-**/etc/hosts Format:**
+**ifconfig Command (Older):**
 ```
-127.0.0.1       localhost
-192.168.1.100   server1    myserver
-192.168.1.101   database
+What is it?
+- Old network configuration tool
+- Deprecated but still widely used
+- Simple and easy to read
+- May need to install: sudo apt install net-tools
+
+Basic usage:
+ifconfig [interface]
 ```
 
-**/etc/resolv.conf File:**
-- DNS server configuration
-- Tells system which DNS servers to use
-- Format: nameserver IP
-- Usually managed by system/network manager
-
-**/etc/resolv.conf Format:**
-```
-nameserver 8.8.8.8
-nameserver 8.8.4.4
-```
-
-**Resolution Order:**
-```
-1. Check /etc/hosts first
-2. If not found, ask DNS servers in /etc/resolv.conf
-3. If DNS fails, error
+**ifconfig Output Explained:**
+```bash
+$ ifconfig eth0
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.100  netmask 255.255.255.0  broadcast 192.168.1.255
+        │         │            │                     │
+        │         │            └───────────────────── Broadcast IP
+        │         └───────────────────────────────── Subnet mask
+        └─────────────────────────────────────────── Your IP address
+        inet6 fe80::1%eth0  prefixlen 64  scopeid 0x20<link>
+        ether 00:11:22:33:44:55  txqueuelen 1000  (Ethernet)
+        │                           │
+        │                           └─ MAC address (hardware address)
+        └───────────────────────────── Physical address
 ```
 
-**Common DNS Servers:**
+**Key Information in Output:**
 ```
-8.8.8.8, 8.8.4.4        - Google DNS
-1.1.1.1                 - Cloudflare DNS
-192.168.1.1             - Router (common)
-10.0.0.1                - Corporate DNS
+inet: IPv4 address
+inet6: IPv6 address
+netmask: Subnet mask
+broadcast: Broadcast address
+ether: MAC address (physical hardware address)
+flags=UP: Interface is active
+mtu: Maximum Transmission Unit (packet size)
+```
+
+**Difference Between ip and ifconfig:**
+```
+ip command:
+✅ Modern, actively maintained
+✅ More features
+✅ Better error messages
+✅ Supports IPv6 better
+✅ Default on modern systems
+
+ifconfig:
+✅ Simple, easy to read
+✅ Familiar to many admins
+❌ Deprecated
+❌ Less features
+❌ May not be installed by default
+```
+
+**Interview Answer Example:**
+```
+Interviewer: How do you check IP address in Linux?
+
+Your Answer:
+"I use the 'ip addr show' command to check IP addresses. This is
+the modern and recommended method. For example, 'ip addr show eth0'
+will display the IP address of the eth0 interface.
+
+I can also use 'ifconfig' which is the older method, but it's now
+deprecated. The ip command is more powerful and is the preferred
+tool for network configuration on modern Linux systems.
+
+The output shows the IP address, subnet mask, broadcast address,
+and other details like the MAC address and interface status."
 ```
 
 **Real-World Scenarios:**
 
-**Scenario 1: Test website locally**
-```
-Add to /etc/hosts:
-127.0.0.1   myapp.local
-
-Now http://myapp.local points to localhost
-Great for testing before DNS setup
+**Scenario 1: Check your IP**
+```bash
+ip addr show | grep "inet " | grep -v "127.0.0.1"
+# Shows your IP (excluding localhost)
 ```
 
-**Scenario 2: Block website**
-```
-Add to /etc/hosts:
-0.0.0.0     facebook.com
-
-Now facebook.com resolves to nowhere
-Website blocked locally
+**Scenario 2: Check if interface is up**
+```bash
+ip link show eth0
+# Look for "UP" and "LOWER_UP" in flags
 ```
 
-**Scenario 3: DNS not working**
-```
-Check /etc/resolv.conf:
-nameserver 8.8.8.8
-
-If empty or wrong, DNS won't work
+**Scenario 3: View all network info at once**
+```bash
+ip -br addr
+# Brief output, easy to read
 ```
 
 ### **Use**
-- **/etc/hosts**: Local testing, block sites, local network
-- **/etc/resolv.conf**: Configure DNS servers
-- **Both**: Troubleshoot DNS issues
-- **Development**: Test domains locally
-- **Security**: Block malicious sites
+- **Check IP Address**: Know your system's network configuration
+- **Troubleshooting**: Verify network is configured correctly
+- **Network Setup**: Configure IP addresses on servers
+- **Connectivity Issues**: Check if interface is up
+- **Documentation**: Record network configuration
 
 ### **Command**
 ```bash
-# View /etc/hosts
-cat /etc/hosts
+# Modern method (recommended)
+ip addr show                    # View all interfaces
+ip a show                       # Short form
+ip addr show eth0              # View specific interface
+ip -br addr                     # Brief format
 
-# View /etc/resolv.conf
+# View only IP addresses
+ip addr show | grep "inet "
+
+# View specific information
+ip addr show eth0 | grep inet   # Only IP
+ip addr show eth0 | grep ether  # Only MAC address
+
+# Old method (ifconfig)
+ifconfig                       # View all interfaces
+ifconfig eth0                  # View specific interface
+ifconfig eth0 | grep inet      # Only IP
+ifconfig eth0 | grep ether     # Only MAC
+
+# Check interface status
+ip link show                    # All interfaces
+ip link show eth0              # Specific interface
+ip link set eth0 up            # Bring interface up
+ip link set eth0 down          # Bring interface down
+
+# Real-world troubleshooting
+# Step 1: Check IP
+ip addr show
+
+# Step 2: Check interface is up
+ip link show eth0
+
+# Step 3: Check gateway
+ip route show | grep default
+
+# Step 4: Test connectivity
+ping 8.8.8.8
+
+# View network configuration summary
+ip -br addr
+ip route show
+```
+
+---
+
+## Q3. How to Check Open Ports and Listening Services (netstat, ss)?
+
+### **Definition**
+Commands to view network connections, open ports, and listening services on Linux system.
+
+### **Explain (Detail - Interview Answer)**
+
+**What Are Ports?**
+```
+What is a port?
+- Like doors on a house (house = IP address, doors = ports)
+- Applications listen on specific ports to receive connections
+- Port numbers range from 0-65535
+
+Common ports:
+22  → SSH (remote login)
+80  → HTTP (web server)
+443 → HTTPS (secure web server)
+3306 → MySQL database
+5432 → PostgreSQL database
+8080 → Alternative HTTP port
+```
+
+**ss Command (Modern - Recommended):**
+```
+What is it?
+- Socket Statistics - modern replacement for netstat
+- Faster, more feature-rich
+- Default on modern Linux systems
+- Better filtering options
+
+Basic syntax:
+ss [options] [filter]
+```
+
+**Common ss Commands:**
+```bash
+# Show all listening TCP ports
+ss -tlnp
+
+# Output explanation:
+# State   Recv-Q Send-Q Local Address:Port    Peer Address:Port
+# LISTEN  0      128    0.0.0.0:22            0.0.0.0:*
+#         │      │      │       │            │
+#         │      │      │       │            └─ Accept from any
+#         │      │      │       └──────────────── Port 22 (SSH)
+#         │      │      └───────────────────────── Your IP (0.0.0.0 = all)
+#         │      └───────────────────────────── Send/Receive queue
+#         └───────────────────────────────────── State (LISTEN = waiting for connections)
+
+# Process info (p flag)
+# Shows which process is using the port
+```
+
+**netstat Command (Older):**
+```
+What is it?
+- Network Statistics - older tool
+- Widely known and used
+- Deprecated but still common
+- May need to install: sudo apt install net-tools
+
+Basic syntax:
+netstat [options]
+```
+
+**Common netstat Commands:**
+```bash
+# Show all listening TCP ports with process
+netstat -tlnp
+
+# Output similar to ss but older format
+```
+
+**Command Options Explained:**
+```
+ss/netstat options:
+
+-t  → TCP connections
+-u  → UDP connections
+-l  → Listening sockets only
+-n  → Show numbers (don't resolve names, faster)
+-p  → Show process name/PID (requires root)
+-a  → Show all sockets (listening and established)
+```
+
+**Real-World Examples:**
+
+**Example 1: Check what's listening on port 80**
+```bash
+ss -tlnp | grep :80
+# Shows web server (Apache/Nginx) if running
+```
+
+**Example 2: Check SSH is running**
+```bash
+ss -tlnp | grep :22
+# Should show sshd process
+```
+
+**Example 3: Check all listening services**
+```bash
+ss -tlnp
+# Shows all services listening on ports
+```
+
+**Example 4: Find which process is using a port**
+```bash
+sudo ss -tlnp | grep :8080
+# Shows which app is using port 8080
+```
+
+**Interview Answer Example:**
+```
+Interviewer: How do you check open ports on a Linux server?
+
+Your Answer:
+"I use the 'ss' command which is the modern tool for checking
+network sockets. For example, 'ss -tlnp' shows all listening TCP
+ports along with the process name and PID.
+
+The options are: -t for TCP, -l for listening, -n for numeric
+port numbers, and -p to show the process. This helps me identify
+which services are running and which ports they're listening on.
+
+I can also use 'netstat -tlnp' which is the older method, but
+ss is preferred as it's faster and has more features."
+```
+
+**Troubleshooting Scenarios:**
+
+**Scenario 1: Service not starting (port already in use)**
+```bash
+# Find what's using the port
+sudo ss -tlnp | grep :8080
+
+# Output shows process using port 8080
+# Kill that process or use different port
+```
+
+**Scenario 2: Verify web server is running**
+```bash
+ss -tlnp | grep ':80 '
+# Should show nginx or apache process
+```
+
+**Scenario 3: Check for suspicious connections**
+```bash
+ss -tunp
+# Shows all TCP and UDP connections with processes
+```
+
+### **Use**
+- **Check Services**: Verify which services are running
+- **Troubleshooting**: Find why service won't start (port conflict)
+- **Security**: Check for unexpected open ports
+- **Network Debugging**: See active connections
+- **Port Conflicts**: Find which process is using a port
+
+### **Command**
+```bash
+# ss command (modern, recommended)
+ss -tlnp                        # All listening TCP ports
+ss -ulnp                        # All listening UDP ports
+ss -tunp                        # All TCP and UDP ports
+ss -tlnp | grep :22            # Check SSH (port 22)
+ss -tlnp | grep :80            # Check web server
+ss -s                          # Summary statistics
+
+# netstat command (older)
+netstat -tlnp                   # All listening TCP ports
+netstat -tlnp | grep :80       # Check specific port
+netstat -tunp                   # All TCP and UDP
+netstat -an                     # All sockets (no process info)
+
+# Find what's using a port
+sudo ss -tlnp | grep :8080
+sudo netstat -tlnp | grep :8080
+
+# Count connections by state
+ss -s
+# Shows: established, time-wait, etc.
+
+# View established connections
+ss -tn
+ss -tn state established
+
+# Real-world troubleshooting
+# Step 1: Check web server listening
+ss -tlnp | grep ':80 '
+
+# Step 2: Check if port is in use
+sudo ss -tlnp | grep ':8080 '
+
+# Step 3: Find all listening services
+sudo ss -tlnp
+
+# Step 4: Check connection count
+ss -s
+
+# Step 5: Monitor connections in real-time
+watch -n 1 'ss -tunp'
+```
+
+---
+
+## Q4. What is DNS and How to Troubleshoot DNS Issues?
+
+### **Definition**
+DNS (Domain Name System) - Converts domain names to IP addresses.
+
+### **Explain (Detail - Interview Answer)**
+
+**What is DNS?**
+```
+Simple explanation:
+DNS is like phonebook of the internet
+
+Domain name: google.com
+IP address:  142.250.185.238
+
+Without DNS, you'd need to remember IP addresses
+With DNS, you just remember domain names
+
+How it works:
+1. You type: google.com
+2. Computer asks DNS server: "What's IP for google.com?"
+3. DNS server replies: "142.250.185.238"
+4. Your browser connects to that IP address
+```
+
+**DNS Hierarchy:**
+```
+Your Computer
+    ↓
+ISP DNS Server (or your configured DNS)
+    ↓
+Root DNS Servers
+    ↓
+TLD DNS Servers (.com, .org, .net)
+    ↓
+Authoritative DNS Server (google.com's DNS)
+```
+
+**DNS Resolution Example:**
+```
+1. Browser: "Where is google.com?"
+2. Check cache (already know IP?)
+3. If not, ask DNS server
+4. DNS server finds IP and returns it
+5. Browser connects to IP
+6. Connection successful!
+```
+
+**Important Files:**
+```
+/etc/hosts:
+- Local DNS resolution
+- Checked before DNS server
+- Format: IP    hostname
+- Example: 127.0.0.1    localhost
+          192.168.1.100  myserver
+
+/etc/resolv.conf:
+- DNS server configuration
+- Tells system which DNS servers to use
+- Example:
+  nameserver 8.8.8.8      # Google DNS
+  nameserver 1.1.1.1      # Cloudflare DNS
+```
+
+**DNS Commands:**
+```bash
+# Query DNS
+nslookup google.com          # Look up DNS record
+dig google.com               # More detailed DNS lookup
+host google.com              # Simple lookup
+
+# Check DNS server
+cat /etc/resolv.conf         # View configured DNS servers
+
+# Test DNS resolution
+ping google.com              # Tests if DNS works
+nslookup google.com          # Shows which DNS server responded
+```
+
+**Common DNS Issues:**
+```
+Issue 1: Can't resolve domain names
+Symptom: ping google.com fails with "name or service not known"
+Cause: DNS server down or wrong configuration
+Solution: Check /etc/resolv.conf, try 8.8.8.8
+
+Issue 2: Slow website loading
+Symptom: Websites take long to load
+Cause: Slow DNS server
+Solution: Change to faster DNS (8.8.8.8, 1.1.1.1)
+
+Issue 3: Wrong website opens
+Symptom: Opens different site than expected
+Cause: DNS cache or wrong DNS server
+Solution: Clear cache, check DNS settings
+```
+
+**Interview Answer Example:**
+```
+Interviewer: What is DNS and how do you troubleshoot DNS issues?
+
+Your Answer:
+"DNS is like the phonebook of the internet. It converts human-readable
+domain names like google.com into IP addresses that computers use to
+communicate.
+
+For troubleshooting, I first check /etc/resolv.conf to see which DNS
+servers are configured. Then I use 'nslookup' or 'dig' to test if DNS
+resolution is working. I can also use 'ping' to test connectivity.
+
+If DNS isn't working, I try using a public DNS like 8.8.8.8 to see if
+the issue is with my configured DNS server. I also check /etc/hosts
+for any local overrides that might be causing problems."
+```
+
+**Troubleshooting Steps:**
+```bash
+# Step 1: Check DNS configuration
 cat /etc/resolv.conf
 
-# Edit /etc/hosts
-sudo nano /etc/hosts
-
-# Add entry to /etc/hosts
-echo "192.168.1.100   server1" | sudo tee -a /etc/hosts
-
-# Edit /etc/resolv.conf
-sudo nano /etc/resolv.conf
-
-# Add DNS server
-echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
-
-# Check DNS resolution
+# Step 2: Test DNS resolution
 nslookup google.com
 dig google.com
-host google.com
 
-# Check hosts file first
-getent hosts google.com
+# Step 3: Test with different DNS
+nslookup google.com 8.8.8.8
 
-# Test local resolution
-ping server1
-# Uses /etc/hosts first
+# Step 4: Check if it's a DNS issue
+ping 8.8.8.8                    # Ping IP (should work)
+ping google.com                 # Ping domain (tests DNS)
 
-# Flush DNS cache (if needed)
-sudo systemctl restart systemd-resolved
-# or
-sudo systemctl restart nscd
+# Step 5: Check /etc/hosts
+cat /etc/hosts
 
-# Check which DNS servers being used
-nmcli dev show | grep DNS
-resolvectl status
+# Step 6: Clear DNS cache (systemd-resolved)
+sudo systemd-resolve --flush-caches
+```
 
-# Real-world: Setup local test domain
-# Step 1: Add to /etc/hosts
-sudo nano /etc/hosts
-# Add: 127.0.0.1  myapp.test
+### **Use**
+- **Domain Resolution**: Convert domain names to IPs
+- **Troubleshooting**: Diagnose DNS issues
+- **Configuration**: Set DNS servers
+- **Local Overrides**: Use /etc/hosts for testing
+- **Network Setup**: Configure DNS for servers
 
-# Step 2: Test
-ping myapp.test
-# Now points to localhost
+### **Command**
+```bash
+# DNS lookup commands
+nslookup google.com             # Look up domain
+nslookup google.com 8.8.8.8     # Use specific DNS server
+dig google.com                  # Detailed lookup
+dig google.com @8.8.8.8         # Query specific DNS
+host google.com                 # Simple lookup
 
-# Step 3: Use in browser
-# http://myapp.test
+# Check DNS configuration
+cat /etc/resolv.conf            # View DNS servers
+systemd-resolve --status       # View DNS status (Ubuntu)
 
-# Real-world: Fix DNS issues
-# Step 1: Check DNS servers
+# Test DNS resolution
+ping google.com                 # Tests DNS
+curl -I https://google.com     # Tests HTTP + DNS
+
+# Troubleshooting
+# Check if DNS is the issue
+ping 8.8.8.8                    # Should work (IP)
+ping google.com                 # Tests DNS
+
+# Try different DNS
+nslookup google.com 8.8.8.8     # Google DNS
+nslookup google.com 1.1.1.1     # Cloudflare DNS
+
+# View DNS servers
+cat /etc/resolv.conf
+
+# Check /etc/hosts
+cat /etc/hosts
+
+# Clear DNS cache (Ubuntu)
+sudo systemd-resolve --flush-caches
+
+# Real-world troubleshooting
+# Step 1: Check DNS config
 cat /etc/resolv.conf
 
 # Step 2: Test DNS
 nslookup google.com
-# If fails, DNS problem
 
-# Step 3: Use Google DNS
-echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+# Step 3: If fails, try public DNS
+nslookup google.com 8.8.8.8
 
-# Step 4: Test again
-nslookup google.com
+# Step 4: Check if it's network or DNS
+ping 8.8.8.8
+ping google.com
+
+# Step 5: Check hosts file
+cat /etc/hosts
 ```
 
 ---
 
-## Q4. How to Connect to Remote Server via SSH?
+## Q5. How to Check Network Connectivity (ping, traceroute, mtr)?
 
 ### **Definition**
-SSH (Secure Shell) - Protocol for secure remote login and command execution.
+Commands to test network connectivity and trace the path to destination.
 
-### **Explain (Detail)**
-
-**SSH Basics:**
-- Encrypted connection (secure)
-- Default port: 22
-- Replaces Telnet (unencrypted)
-- Uses username@host format
-
-**Basic SSH Connection:**
-```
-ssh username@server
-ssh user@192.168.1.100
-ssh root@192.168.1.100
-```
-
-**SSH Authentication Methods:**
-
-**1. Password Authentication:**
-```
-ssh user@server
-# Prompts for password
-# Simple but less secure
-```
-
-**2. SSH Key Authentication (Recommended):**
-```
-ssh user@server
-# Uses private key
-# More secure
-# No password needed
-```
-
-**SSH Keys:**
-- **Private key**: Keep secret (like password)
-- **Public key**: Share with servers (like padlock)
-- Location: ~/.ssh/id_rsa (private), ~/.ssh/id_rsa.pub (public)
-
-**Generate SSH Keys:**
-```
-ssh-keygen -t rsa
-# Creates: id_rsa (private), id_rsa.pub (public)
-```
-
-**Copy Key to Server:**
-```
-ssh-copy-id user@server
-# Copies public key to server's authorized_keys
-# Now can login without password
-```
-
-**SSH with Key:**
-```
-ssh user@server
-# Automatically uses key
-# No password prompt
-```
-
-**SSH with Specific Key:**
-```
-ssh -i /path/to/key user@server
-# Use specific key file
-```
-
-**SSH with Different Port:**
-```
-ssh -p 2222 user@server
-# Connect to port 2222 instead of 22
-```
-
-**SSH Config File (~/.ssh/config):**
-```
-Host myserver
-    HostName 192.168.1.100
-    User username
-    Port 22
-
-# Now just use: ssh myserver
-```
-
-**Common SSH Options:**
-```
--p 2222          - Use port 2222
--i key.pem       - Use specific key
--L 8080:localhost:80  - Local port forwarding
--v               - Verbose (debug)
--N               - No remote command (port forwarding only)
--f               - Background
-```
-
-### **Use**
-- **Remote Administration**: Manage servers remotely
-- **Automation**: Run scripts on remote servers
-- **File Transfer**: With scp, rsync, sftp
-- **Tunneling**: Port forwarding, VPN-like connections
-- **Development**: Remote debugging
-
-### **Command**
-```bash
-# Basic SSH connection
-ssh user@192.168.1.100
-ssh root@192.168.1.100
-
-# SSH with different port
-ssh -p 2222 user@server
-ssh -p 2222 user@192.168.1.100
-
-# Generate SSH keys
-ssh-keygen -t rsa
-ssh-keygen -t rsa -b 4096     # 4096-bit key
-ssh-keygen -t ed25519         # Modern key type
-
-# Copy key to server
-ssh-copy-id user@server
-ssh-copy-id -p 2222 user@server    # With custom port
-
-# Manual key copy (if ssh-copy-id not available)
-cat ~/.ssh/id_rsa.pub | ssh user@server 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'
-
-# SSH with specific key
-ssh -i ~/.ssh/mykey.pem user@server
-
-# Create SSH config
-nano ~/.ssh/config
-# Add:
-# Host myserver
-#     HostName 192.168.1.100
-#     User username
-
-# Now use: ssh myserver
-
-# Verbose SSH (debug connection)
-ssh -v user@server
-
-# Test SSH connection (no login)
-ssh -o BatchMode=yes user@server echo "Success"
-
-# Exit SSH
-exit
-# or press Ctrl+D
-
-# Real-world: Setup passwordless SSH
-# Step 1: Generate key
-ssh-keygen -t rsa
-# Press Enter for defaults (no passphrase)
-
-# Step 2: Copy to server
-ssh-copy-id user@192.168.1.100
-# Enter password once
-
-# Step 3: Test (no password)
-ssh user@192.168.1.100
-
-# Step 4: Should login without password
-
-# Real-world: SSH with config file
-# Step 1: Create config
-nano ~/.ssh/config
-
-# Step 2: Add servers
-Host web1
-    HostName 192.168.1.100
-    User admin
-    Port 22
-
-Host web2
-    HostName 192.168.1.101
-    User admin
-    Port 2222
-
-# Step 3: Connect easily
-ssh web1
-ssh web2
-```
-
----
-
-## Q5. How to Check Network Connectivity (ping, traceroute)?
-
-### **Definition**
-Commands to test and troubleshoot network connectivity.
-
-### **Explain (Detail)**
+### **Explain (Detail - Interview Answer)**
 
 **ping Command:**
-- Tests if host is reachable
-- Sends ICMP packets
+```
+What is it?
+- Tests if a host is reachable
+- Sends ICMP packets to destination
 - Measures response time (latency)
 - Shows packet loss
 
-**ping Output:**
+How it works:
+1. Your computer sends "ping" to destination
+2. Destination replies with "pong"
+3. If reply received → Host is reachable
+4. If no reply → Host is down or network issue
 ```
-PING google.com (142.250.185.238): 56 data bytes
-64 bytes from 142.250.185.238: icmp_seq=0 ttl=116 time=12.3 ms
-64 bytes from 142.250.185.238: icmp_seq=1 ttl=116 time=11.8 ms
 
-ttl   = Time To Live (hops)
-time  = Response time (lower = faster)
+**ping Examples:**
+```bash
+# Basic ping
+ping google.com
+
+# Output:
+# PING google.com (142.250.185.238): 56 data bytes
+# 64 bytes from 142.250.185.238: icmp_seq=0 ttl=117 time=12.3 ms
+# 64 bytes from 142.250.185.238: icmp_seq=1 ttl=117 time=11.8 ms
+# │       │        │               │     │
+# │       │        │               │     └─ Response time
+# │       │        │               └────────── Sequence number
+# │       │        └────────────────────────── Source (google.com)
+# │       └─────────────────────────────────── Reply received
+# └─────────────────────────────────────────── Ping reply
+
+# Count specific number of pings
+ping -c 4 google.com           # Send 4 pings then stop
+
+# Continuous ping (Ctrl+C to stop)
+ping google.com
+
+# Ping with interval
+ping -i 2 google.com            # Ping every 2 seconds
 ```
 
 **traceroute Command:**
-- Shows path packets take to destination
-- Lists all routers (hops) between you and destination
-- Helps find where connection fails
-
-**traceroute Output:**
 ```
-traceroute to google.com (142.250.185.238), 30 hops max
-1  192.168.1.1 (192.168.1.1)  1.2 ms  1.1 ms  1.0 ms
-2  10.0.0.1 (10.0.0.1)      5.2 ms  5.1 ms  5.0 ms
-3  142.250.185.238 (142.250.185.238)  12.3 ms  12.1 ms  12.0 ms
+What is it?
+- Traces path packets take to destination
+- Shows all routers/hops between you and destination
+- Identifies where network issues occur
 
-Hop number  IP address          Time
+How it works:
+1. Sends packets with increasing TTL (Time To Live)
+2. Each router decrements TTL
+3. When TTL = 0, router returns error
+4. Shows IP of each router in path
 ```
 
-**mtr Command (modern):**
+**traceroute Examples:**
+```bash
+# Trace route to google.com
+traceroute google.com
+
+# Output:
+# traceroute to google.com (142.250.185.238), 30 hops max
+#  1  192.168.1.1  1.2 ms  1.1 ms  1.0 ms
+#  2  10.0.0.1     5.4 ms  5.2 ms  5.3 ms
+#  3  72.14.200.1  10.2 ms  10.1 ms  10.3 ms
+#     │            │     │     │
+#     │            │     │     └─ 3rd attempt time
+#     │            │     └───────── 2nd attempt time
+#     │            └─────────────── 1st attempt time
+#     └─────────────────────────── Hop number & IP
+
+# Uses UDP by default, can use ICMP
+traceroute -I google.com       # Use ICMP
+```
+
+**mtr Command:**
+```
+What is it?
 - Combines ping and traceroute
 - Shows real-time statistics
-- Better for ongoing monitoring
+- Continuously pings each hop
+- Better for diagnosing network issues
 
-**When to Use:**
+Why use mtr?
+- Shows packet loss at each hop
+- Real-time updates
+- Better than traceroute for troubleshooting
+```
 
-**ping:**
-- Quick connectivity test
-- Check if server is up
-- Measure latency
-- Detect packet loss
+**mtr Examples:**
+```bash
+# Run mtr (requires root for certain features)
+sudo mtr google.com
 
-**traceroute:**
-- Find where connection fails
-- See network path
-- Identify slow hops
-- Debug routing issues
+# Output shows each hop with:
+# - Response time
+# - Packet loss
+# - Number of packets sent
 
-**Common Issues:**
+# Report mode (generate report)
+sudo mtr -r -c 10 google.com
+# -r: Report mode
+# -c 10: Send 10 packets
+```
 
-**ping fails but traceroute works:**
-- Firewall blocking ping (ICMP)
-- Server is up but not responding to ping
+**Interview Answer Example:**
+```
+Interviewer: How do you troubleshoot network connectivity?
 
-**traceroute stops at hop X:**
-- Issue at that hop
-- Firewall or routing problem
+Your Answer:
+"I start with 'ping' to check if the destination is reachable.
+For example, 'ping -c 4 google.com' sends 4 packets and shows if
+the host responds and the response time.
 
-**All hops show ***:**
-- All routers blocking traceroute
-- Common in corporate networks
+If ping works but there's an issue, I use 'traceroute' to see the
+path packets take. This helps identify which hop is causing the problem.
+
+For more detailed troubleshooting, I use 'mtr' which combines ping
+and traceroute. It shows packet loss and latency at each hop, which
+helps pinpoint network issues."
+```
+
+**Troubleshooting Scenarios:**
+
+**Scenario 1: Can't reach website**
+```bash
+# Step 1: Check if internet works
+ping 8.8.8.8                    # Ping IP (tests connectivity)
+ping google.com                 # Ping domain (tests DNS)
+
+# Step 2: If IP works but domain doesn't
+# → DNS issue (see Q4)
+
+# Step 3: If both fail
+ping 192.168.1.1                # Ping gateway
+# If gateway fails → Local network issue
+```
+
+**Scenario 2: Slow connection**
+```bash
+# Check latency
+ping -c 10 google.com
+# Look at time values (lower is better)
+
+# Trace path to find slow hop
+traceroute google.com
+# Look for hop with high response time
+```
+
+**Scenario 3: Intermittent connection**
+```bash
+# Continuous ping
+ping google.com
+# Watch for dropped packets (request timeout)
+
+# Use mtr for better analysis
+sudo mtr google.com
+# Shows packet loss at each hop
+```
 
 ### **Use**
-- **Daily**: Check server connectivity
-- **Troubleshooting**: Find where network fails
-- **Performance**: Measure latency
-- **Debug**: Identify network issues
-- **Monitoring**: Continuous network checks
+- **Test Connectivity**: Check if host is reachable
+- **Diagnose Issues**: Find where network fails
+- **Measure Latency**: Check response time
+- **Packet Loss**: Identify network problems
+- **Path Analysis**: See route to destination
 
 ### **Command**
 ```bash
-# ping command
-ping google.com                     # Continuous ping
-ping -c 4 google.com               # Send 4 packets
-ping -c 4 192.168.1.100            # Ping IP
-ping -i 2 google.com               # 2 second interval
-ping -s 1000 google.com            # 1000 byte packets
+# ping - test connectivity
+ping google.com                 # Continuous ping
+ping -c 4 google.com            # Send 4 pings
+ping -i 2 google.com            # Ping every 2 seconds
+ping 8.8.8.8                    # Ping IP (bypasses DNS)
 
-# Stop ping
-# Press Ctrl+C
+# traceroute - trace path
+traceroute google.com           # Trace route
+traceroute -I google.com        # Use ICMP
+traceroute -n google.com        # Don't resolve names (faster)
 
-# traceroute command
-traceroute google.com               # Trace path
-traceroute -n google.com            # No DNS resolution (faster)
-traceroute -m 20 google.com         # Max 20 hops
+# mtr - continuous traceroute
+sudo mtr google.com             # Interactive mode
+sudo mtr -r -c 10 google.com    # Report mode
+sudo mtr -n google.com          # Don't resolve names
 
-# mtr command (modern)
-mtr google.com                     # Interactive
-mtr -r -c 10 google.com           # Report mode, 10 cycles
+# Real-world troubleshooting
+# Step 1: Check connectivity
+ping -c 4 8.8.8.8
 
-# Check if host is reachable
-ping -c 1 192.168.1.100
-if ping -c 1 192.168.1.100 &> /dev/null; then echo "Up"; else echo "Down"; fi
+# Step 2: Check DNS
+ping -c 4 google.com
 
-# Measure latency
-ping -c 10 google.com | tail -1
-# Shows packet loss and average time
+# Step 3: Check gateway
+ping -c 4 192.168.1.1
 
-# Check packet loss
-ping -c 100 8.8.8.8 | grep "packet loss"
-
-# Find where connection fails
+# Step 4: Trace route
 traceroute google.com
-# Shows each hop, find where stops
 
-# Check local gateway
-ping -c 1 192.168.1.1
+# Step 5: Continuous monitoring
+ping google.com
+# Press Ctrl+C to stop
 
-# Check internet
-ping -c 1 8.8.8.8
+# Check latency
+ping -c 10 google.com | grep "time="
+# Shows response times
 
-# Check DNS
-ping -c 1 google.com
-
-# Real-world: Troubleshoot connection to server
-# Step 1: Check if server is up
-ping -c 4 192.168.1.100
-
-# Step 2: If fails, check local network
-ping -c 1 192.168.1.1
-
-# Step 3: If gateway works, find where it fails
-traceroute 192.168.1.100
-
-# Step 4: Check DNS
-ping -c 1 google.com
-
-# Step 5: Check if port open (if ping blocked)
-telnet 192.168.1.100 22
-# or
-nc -zv 192.168.1.100 22
+# Find problematic hop
+sudo mtr -r -c 20 google.com
+# Shows which hop has packet loss/latency
 ```
 
 ---
@@ -717,766 +968,1071 @@ nc -zv 192.168.1.100 22
 ## Q6. How to Find Which Process is Using a Port?
 
 ### **Definition**
-Commands to identify which application/process is using a specific port.
+Command to identify which application/process is listening on or using a specific port.
 
-### **Explain (Detail)**
+### **Explain (Detail - Interview Answer)**
 
-**Why Find Process by Port:**
-- Port already in use (can't start service)
-- Unknown process using port
-- Security - find suspicious processes
-- Troubleshoot service conflicts
+**Why Find Process Using Port?**
+```
+Common scenarios:
+1. Port conflict - service won't start because port already in use
+2. Security check - unknown process listening on port
+3. Troubleshooting - which service is using which port
+4. Cleanup - kill process using old/unused port
+```
 
-**Common Commands:**
+**Methods to Find Process:**
 
-**lsof (List Open Files):**
-- Lists open files and ports
-- Very powerful
-- Shows process details
+**Method 1: Using ss (Recommended)**
+```bash
+# Find process using port 80
+sudo ss -tlnp | grep :80
 
-**ss (Socket Statistics):**
-- Shows socket information
-- Includes process name/PID
-- Faster than lsof
-- Modern Linux default
+# Output:
+# LISTEN 0  128  0.0.0.0:80  0.0.0.0:*  users:(("nginx",pid=1234,fd=6))
+#                                    │      │    │    │
+#                                    │      │    │    └─ File descriptor
+#                                    │      │    └────── Process ID
+#                                    │      └─────────── Process name
+#                                    └────────────────── Port being used
+```
 
-**netstat:**
-- Older tool
-- Still works
-- With -p flag shows process
+**Method 2: Using netstat**
+```bash
+# Find process using port 8080
+sudo netstat -tlnp | grep :8080
+
+# Similar output to ss
+```
+
+**Method 3: Using lsof (List Open Files)**
+```bash
+# List files opened by processes on port 22
+sudo lsof -i :22
+
+# Output:
+# COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+# sshd     1234 root    3u  IPv4  12345      0t0  TCP *:22 (LISTEN)
+#          │    │     │    │     │
+#          │    │     │    │     └─ Network socket info
+#          │    │     │    └─────────── Type (IPv4/TCP)
+#          │    │     └──────────────── File descriptor
+#          │    └───────────────────── User running process
+#          └───────────────────────── Command name
+```
+
+**Method 4: Using fuser**
+```bash
+# Find process using port
+sudo fuser 80/tcp
+
+# Output shows PIDs using that port
+```
+
+**Interview Answer Example:**
+```
+Interviewer: How do you find which process is using a port?
+
+Your Answer:
+"I use 'ss -tlnp' command with grep to find the process. For example,
+'sudo ss -tlnp | grep :8080' will show which process is listening on
+port 8080, along with the PID and process name.
+
+The -p flag shows the process information, -l shows listening sockets,
+-t shows TCP, and -n shows numeric ports. I can also use 'lsof -i :8080'
+which provides similar information about which process is using the port."
+```
 
 **Real-World Scenarios:**
 
-**Scenario 1: Can't start nginx (port 80 in use)**
-```
-Error: Address already in use
+**Scenario 1: Port conflict**
+```bash
+# Application fails to start: "Port 8080 already in use"
 
-Find what's using port 80:
-ss -tlnp | grep :80
-or
-lsof -i :80
+# Find what's using port 8080
+sudo ss -tlnp | grep :8080
 
-Output: nginx (PID 1234)
-or
-Output: apache2 (PID 5678)   ← Different service!
+# Output: java (PID 5432) using port 8080
 
-Solution: Stop conflicting service or change port
-```
-
-**Scenario 2: Unknown service on port 8080**
-```
-Check what's running:
-lsof -i :8080
-ss -tlnp | grep :8080
-
-Find suspicious process and investigate
+# Options:
+# 1. Kill the process: sudo kill 5432
+# 2. Use different port for new app
+# 3. Restart the old service properly
 ```
 
-**Common Ports and Services:**
+**Scenario 2: Unknown process on port**
+```bash
+# Suspicious port found
+sudo ss -tlnp | grep :3333
+
+# If unknown process, investigate:
+ps aux | grep 1234              # Check process details
+lsof -p 1234                   # Check files opened
+systemctl status service_name   # Check if it's a service
 ```
-22   - sshd
-80   - nginx, apache, httpd
-443  - nginx, apache
-3306 - mysqld
-5432 - postgres
-6379 - redis-server
-8080 - java, tomcat, node.js
+
+**Scenario 3: Multiple processes on same port?**
+```bash
+# Usually only one process can listen on a port
+# But multiple connections (from different clients) to same port
+
+# Show all connections to port 80
+sudo ss -tnp | grep :80
+
+# Shows established connections, not just listening
 ```
 
 ### **Use**
-- **Troubleshooting**: "Port already in use" errors
-- **Security**: Find unknown/suspicious processes
-- **Debugging**: Identify which service is listening
-- **Management**: Kill process if needed
-- **Configuration**: Verify correct service on port
+- **Port Conflicts**: Find why service won't start
+- **Security**: Identify unknown processes
+- **Troubleshooting**: Know which service uses which port
+- **Cleanup**: Kill unused processes
+- **Documentation**: Record process-port mappings
 
 ### **Command**
 ```bash
-# Find process using specific port (ss)
-ss -tlnp | grep :80
-ss -tlnp | grep :22
-ss -tlnp | grep :3306
+# Find process using port
+sudo ss -tlnp | grep :8080       # Using ss (recommended)
+sudo netstat -tlnp | grep :8080  # Using netstat
+sudo lsof -i :8080               # Using lsof
+sudo fuser 8080/tcp              # Using fuser
 
-# Find process using specific port (lsof)
-sudo lsof -i :80
-sudo lsof -i :22
-sudo lsof -i :3306
+# Find all listening ports
+sudo ss -tlnp                    # All listening ports with processes
 
-# Find process using specific port (netstat)
-sudo netstat -tlnp | grep :80
+# Find connections to specific port
+sudo ss -tnp | grep :80          # All connections to port 80
 
-# Show PID and process name
-ss -tlnp | grep :80
-# Output: tcp LISTEN 0 128  [::]:80 [::]:* users:(("nginx",pid=1234,fd=6))
+# Find process by port name
+sudo ss -tlnp | grep nginx       # Find all nginx ports
 
-# Check if port is in use
-ss -tlnp | grep -q :80 && echo "Port 80 in use" || echo "Port 80 free"
+# Check multiple ports
+sudo ss -tlnp | grep -E ':(80|443|8080)'
 
 # Kill process using port
-sudo kill $(sudo lsof -t -i:80)
-# or
-sudo kill $(sudo ss -tlnp | grep :80 | awk '{print $6}' | cut -d, -f2 | cut -d= -f2)
+sudo kill $(sudo lsof -t -i:8080)  # Kill process on port 8080
 
-# Find what's using port 80
-sudo lsof -i :80
-# Shows: COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
-#        nginx   1234 root  6u  IPv4  12345      0t0  TCP *:http (LISTEN)
+# Real-world troubleshooting
+# Step 1: Application fails to start
+# Error: "Address already in use"
 
-# Real-world: Port 8080 already in use
-# Step 1: Find what's using it
-sudo lsof -i :8080
-# Output: java (PID 4567)
+# Step 2: Find what's using the port
+sudo ss -tlnp | grep :8080
 
-# Step 2: Check process
-ps aux | grep 4567
-# See what application it is
+# Step 3: Identify process
+ps aux | grep PID
 
-# Step 3: Decide to kill or change port
-# Option A: Kill process
-sudo kill 4567
+# Step 4: Decide action
+sudo kill PID                   # Or use different port
 
-# Option B: Use different port
-# Change application config to use 8081
-
-# Step 4: Verify port free
-ss -tlnp | grep :8080
-# Should show nothing
-
-# Real-world: Find all listening processes
-ss -tlnp
-# Shows all listening ports with PIDs
-
-# Find processes by user
-sudo lsof -u www-data -i -P
+# Step 5: Verify port is free
+sudo ss -tlnp | grep :8080
 ```
 
 ---
 
-## Q7. How to Check Network Connections?
+## Q7. What is SSH and How to Connect to Remote Server?
 
 ### **Definition**
-Commands to view active network connections and network traffic.
+SSH (Secure Shell) - Secure protocol for remote login and command execution.
 
-### **Explain (Detail)**
+### **Explain (Detail - Interview Answer)**
 
-**Network Connection Types:**
-
-**TCP Connections:**
-- Reliable, connection-oriented
-- Used by most services (HTTP, SSH, etc.)
-- States: ESTABLISHED, LISTEN, TIME_WAIT, etc.
-
-**UDP:**
-- Unreliable, connectionless
-- Used by DNS, gaming, streaming
-- No connection state
-
-**Connection States (TCP):**
+**What is SSH?**
 ```
-LISTEN      - Waiting for connections
-ESTABLISHED - Connected and active
-TIME_WAIT   - Waiting after close
-CLOSE_WAIT  - Remote closed, waiting for local
+SSH (Secure Shell):
+- Secure way to access remote servers
+- Encrypted connection (all data is encrypted)
+- Replaces insecure protocols like Telnet
+- Uses port 22 by default
+- Provides authentication (password or keys)
+
+How it works:
+1. Client connects to server on port 22
+2. Server presents its public key
+3. Client verifies server identity
+4. Client authenticates (password or key)
+5. Secure encrypted connection established
 ```
 
-**Commands to View Connections:**
+**Basic SSH Connection:**
+```bash
+# Connect to remote server
+ssh username@remote_server
 
-**ss command:**
-```
-ss -t       - TCP connections
-ss -u       - UDP connections
-ss -a       - All (including listening)
-ss -n       - Numeric (no DNS)
-ss -p       - Show process/PID
-```
+# Example:
+ssh user@192.168.1.100        # Connect by IP
+ssh user@server.example.com    # Connect by domain
+ssh root@192.168.1.100         # Connect as root
 
-**netstat command:**
-```
-netstat -t  - TCP
-netstat -u  - UDP
-netstat -a  - All
-netstat -n  - Numeric
-netstat -p  - Show process
+# Connection process:
+# 1. First time: "The authenticity of host... can't be established"
+# 2. Type "yes" to accept server's fingerprint
+# 3. Enter password when prompted
+# 4. Connected! You're now on remote server
 ```
 
-**What to Look For:**
-- **ESTABLISHED**: Active connections
-- **LISTEN**: Services waiting for connections
-- **TIME_WAIT**: Recently closed (normal)
-- **Foreign IP**: Who's connected to you
-
-**Real-World Examples:**
-
-**View all connections:**
+**SSH Key Authentication:**
 ```
-ss -tan
-netstat -tan
-Shows all TCP connections
-```
+Why use SSH keys?
+- More secure than passwords
+- No need to enter password every time
+- Better for automation/scripts
+- Can revoke access by removing key
 
-**View established connections only:**
-```
-ss -tan | grep ESTABLISHED
-netstat -tan | grep ESTABLISHED
-Shows active connections
+How SSH keys work:
+1. Generate key pair (private + public)
+2. Public key goes on server
+3. Private key stays on your computer
+4. Server checks if your private key matches its public key
+5. If match → Access granted
 ```
 
-**Who's connected to my server:**
+**Generate SSH Keys:**
+```bash
+# Generate SSH key pair
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+# Options:
+# -t rsa       → Key type (RSA recommended)
+# -b 4096      → Key size (4096 bits = very secure)
+# -C comment   → Label/comment for key
+
+# Prompts:
+# 1. Save location: press Enter (default ~/.ssh/id_rsa)
+# 2. Passphrase: press Enter (no passphrase) or type password
+# 3. Confirm passphrase
+
+# Keys generated:
+# ~/.ssh/id_rsa      → Private key (NEVER share!)
+# ~/.ssh/id_rsa.pub  → Public key (share this one)
 ```
-ss -tan | grep ESTABLISHED | awk '{print $5}'
-Shows all remote IPs connected
+
+**Copy Public Key to Server:**
+```bash
+# Method 1: ssh-copy-id (easiest)
+ssh-copy-id username@remote_server
+
+# Method 2: Manual copy
+# Step 1: View your public key
+cat ~/.ssh/id_rsa.pub
+
+# Step 2: On remote server, add to authorized_keys
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+echo "your_public_key" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+```
+
+**Connect with SSH Key:**
+```bash
+# After copying key, connect without password
+ssh username@remote_server
+
+# If you have multiple keys, specify which to use
+ssh -i ~/.ssh/my_key username@remote_server
+
+# Or use SSH config file (see below)
+```
+
+**SSH Config File:**
+```bash
+# Create ~/.ssh/config file
+nano ~/.ssh/config
+
+# Add hosts:
+Host myserver
+    HostName 192.168.1.100
+    User myuser
+    IdentityFile ~/.ssh/id_rsa
+
+Host webserver
+    HostName server.example.com
+    User root
+    Port 2222
+
+# Now connect easily:
+ssh myserver                   # Uses config above
+ssh webserver                  # Uses config above
+```
+
+**Common SSH Operations:**
+```bash
+# Connect with specific port
+ssh -p 2222 user@server
+
+# Run command on remote server
+ssh user@server "ls -la"
+
+# Copy file to remote server
+scp local_file.txt user@server:/remote/path/
+
+# Copy file from remote server
+scp user@server:/remote/file.txt ./
+
+# Copy directory (recursive)
+scp -r local_dir/ user@server:/remote/path/
+```
+
+**Interview Answer Example:**
+```
+Interviewer: What is SSH and how do you use it?
+
+Your Answer:
+"SSH (Secure Shell) is a protocol for securely accessing remote servers
+over an encrypted connection. It's the standard way to manage Linux servers
+remotely.
+
+To connect, I use 'ssh username@server' and enter my password. For
+better security, I use SSH key authentication. I generate keys with
+'ssh-keygen', copy the public key to the server with 'ssh-copy-id',
+and then I can connect without entering a password.
+
+I can also run commands remotely, copy files with SCP, and configure
+common hosts in the SSH config file for easier access."
+```
+
+**Security Best Practices:**
+```
+✅ DO:
+- Use SSH keys instead of passwords
+- Disable root SSH login
+- Use non-standard SSH port
+- Use key passphrase for extra security
+- Keep private key secure (never share!)
+
+❌ DON'T:
+- Use weak passwords
+- Allow root SSH login
+- Share your private key
+- Use default port 22 (change it)
+- Leave unused SSH keys
 ```
 
 ### **Use**
-- **Monitoring**: See active connections
-- **Security**: Find suspicious connections
-- **Troubleshooting**: Debug connection issues
-- **Performance**: Check connection count
-- **Audit**: Who's accessing server
+- **Remote Access**: Login to servers remotely
+- **File Transfer**: Copy files with SCP/SFTP
+- **Remote Commands**: Execute commands on remote servers
+- **Automation**: Script remote operations
+- **Tunneling**: Secure port forwarding
+- **System Administration**: Manage servers remotely
 
 ### **Command**
 ```bash
-# View all TCP connections
-ss -tan
-netstat -tan
+# SSH connection
+ssh user@server                 # Basic connection
+ssh -p 2222 user@server        # With custom port
+ssh user@192.168.1.100         # With IP address
 
-# View all UDP connections
-ss -uan
-netstat -uan
+# Generate SSH keys
+ssh-keygen -t rsa -b 4096      # Generate key pair
+ssh-keygen -t ed25519         # Modern key type
 
-# View established connections
-ss -tan | grep ESTABLISHED
-ss -tn state established
+# Copy public key to server
+ssh-copy-id user@server        # Easiest method
 
-# View listening ports
-ss -tln
-netstat -tln
+# Connect with key (no password)
+ssh user@server                # Works if key copied
 
-# View connections with process info
-ss -tanp
-sudo netstat -tanp
+# Run remote command
+ssh user@server "ls -la"
+ssh user@server "df -h"
 
-# View connections with numeric IPs (faster)
-ss -tan
-# Without -n, does DNS resolution (slower)
+# File transfer (SCP)
+scp file.txt user@server:/path/          # Upload
+scp user@server:/path/file.txt .          # Download
+scp -r dir/ user@server:/path/           # Upload directory
 
-# Count established connections
-ss -tan | grep ESTABLISHED | wc -l
+# SSH config
+nano ~/.ssh/config                       # Edit config
+ssh myserver                             # Connect using config
 
-# View connections to specific port
-ss -tan | grep :22
-ss -tan | grep :80
+# Check SSH connection
+ssh -v user@server                      # Verbose (debug)
 
-# View all connections from specific IP
-ss -tan | grep 192.168.1.100
+# Real-world setup
+# Step 1: Generate keys
+ssh-keygen -t rsa -b 4096
 
-# View foreign IPs (who's connected)
-ss -tan | grep ESTABLISHED | awk '{print $5}' | cut -d: -f1 | sort -u
+# Step 2: Copy to server
+ssh-copy-id user@server
 
-# Show summary of connection states
-ss -s
-# Shows: TCP, UDP, connection states, memory
+# Step 3: Test connection (no password)
+ssh user@server
 
-# Real-time monitoring
-watch -n 1 'ss -tan | grep ESTABLISHED'
+# Step 4: Configure SSH config
+cat >> ~/.ssh/config << EOF
+Host myserver
+    HostName server.example.com
+    User myuser
+EOF
 
-# Real-world: Who's connected to my web server
-# Step 1: View connections to port 80
-ss -tan | grep :80
-
-# Step 2: Filter established connections
-ss -tan | grep :80 | grep ESTABLISHED
-
-# Step 3: See IPs connected
-ss -tan | grep :80 | grep ESTABLISHED | awk '{print $5}' | cut -d: -f1 | sort -u
-
-# Step 4: Count connections per IP
-ss -tan | grep :80 | grep ESTABLISHED | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn
-
-# Real-world: Check for too many TIME_WAIT
-# Step 1: Count TIME_WAIT connections
-ss -tan | grep TIME_WAIT | wc -l
-
-# Step 2: If high (>1000), might be issue
-# Could indicate connection storms
-
-# Step 3: View details
-ss -tan | grep TIME_WAIT | head -20
-
-# Real-world: Monitor connections in real-time
-watch -n 2 'ss -tan | grep ESTABLISHED | wc -l'
-# Shows count of active connections, updates every 2 seconds
+# Step 5: Easy connect
+ssh myserver
 ```
 
 ---
 
-## Q8. How to View ARP Table?
+## Q8. How to View and Manage Network Connections?
+
+### **Definition**
+Commands to view established, listening, and network connection states.
+
+### **Explain (Detail - Interview Answer)**
+
+**Connection States:**
+```
+TCP Connection States:
+
+LISTEN:
+- Waiting for incoming connections
+- Server listening on port
+- Example: Web server listening on port 80
+
+ESTABLISHED:
+- Active connection between client and server
+- Data can be transferred
+- Example: Connected to google.com
+
+TIME_WAIT:
+- Connection closed, waiting for final packets
+- Normal part of closing connection
+- Usually waits 2-4 minutes
+
+CLOSE_WAIT:
+- Remote side closed connection
+- Waiting for local side to close
+
+FIN_WAIT:
+- Connection closing
+- Waiting for remote acknowledgment
+```
+
+**View All Connections:**
+```bash
+# Show all TCP connections
+ss -tn
+
+# Show all TCP and UDP
+ss -tun
+
+# Show with process info
+ss -tunp
+
+# Show listening and established
+ss -tan
+```
+
+**Connection Output Explained:**
+```bash
+$ ss -tn
+State      Recv-Q Send-Q Local Address:Port   Peer Address:Port
+ESTAB      0      0      192.168.1.100:54321  142.250.185.238:443
+│          │      │      │            │       │              │
+│          │      │      │            │       │              └─ Remote port
+│          │      │      │            │       └───────────────── Remote IP
+│          │      │      │            └────────────────────────── Local port
+│          │      │      └─────────────────────────────────────── Local IP
+│          │      └────────────────────────────────────────────── Send queue
+│          └────────────────────────────────────────────────────── Receive queue
+└───────────────────────────────────────────────────────────────── State
+```
+
+**Count Connections:**
+```bash
+# Count all connections
+ss -tun | wc -l
+
+# Count by state
+ss -tan | awk 'NR>1 {print $1}' | sort | uniq -c
+# Output:
+#      5 ESTABLISHED
+#     10 TIME_WAIT
+#      3 LISTEN
+
+# Count connections to specific port
+ss -tn | grep :80 | wc -l
+```
+
+**Filter Connections:**
+```bash
+# Show established connections only
+ss -tn state established
+
+# Show connections to specific IP
+ss -tn dst 192.168.1.100
+
+# Show connections from specific IP
+ss -tn src 192.168.1.100
+
+# Show connections to specific port
+ss -tn dst :443
+ss -tn '( dport = :443 )'        # Same as above
+
+# Show connections from specific port
+ss -tn sport :54321
+```
+
+**Monitor Connections in Real-time:**
+```bash
+# Watch connections
+watch -n 1 'ss -tn'
+
+# Show summary
+ss -s
+# Total: 150
+# TCP: 100 (estab 80, closed 20)
+# UDP: 50
+```
+
+**Interview Answer Example:**
+```
+Interviewer: How do you view network connections?
+
+Your Answer:
+"I use 'ss' command to view network connections. 'ss -tnp' shows all
+TCP connections with process information, including the state of each
+connection.
+
+Common states I look for are ESTABLISHED (active connections), LISTEN
+(ports waiting for connections), and TIME_WAIT (recently closed
+connections). I can also filter by specific ports or IPs using grep
+or ss filters.
+
+For monitoring, I use 'ss -s' to get a summary of all connections,
+or 'watch ss -tn' to see connections updating in real-time."
+```
+
+**Real-World Scenarios:**
+
+**Scenario 1: Too many TIME_WAIT connections**
+```bash
+# Check connection states
+ss -tan | awk 'NR>1 {print $1}' | sort | uniq -c
+
+# If many TIME_WAIT:
+# - Normal for busy web server
+# - Can be adjusted with kernel parameters
+# - Usually not a problem unless port exhaustion
+```
+
+**Scenario 2: Find connections to specific service**
+```bash
+# All connections to web server (port 80)
+ss -tn dst :80
+
+# Show details
+ss -tnp dst :80
+```
+
+**Scenario 3: Monitor connection spikes**
+```bash
+# Real-time monitoring
+watch -n 5 'ss -s'
+
+# Or log to file
+while true; do ss -s >> connections.log; sleep 60; done
+```
+
+### **Use**
+- **Monitor Traffic**: See active connections
+- **Troubleshoot**: Identify connection issues
+- **Security**: Detect unusual connections
+- **Performance**: Check connection counts
+- **Debugging**: Track connection states
+
+### **Command**
+```bash
+# View connections
+ss -tn                          # All TCP connections
+ss -tun                         # TCP + UDP
+ss -tunp                        # With process info
+ss -tan                         # All TCP with state
+
+# Count connections
+ss -tun | wc -l                 # Total connections
+ss -s                           # Summary statistics
+
+# Filter by state
+ss -tn state established        # Established only
+ss -tn state time-wait          # TIME_WAIT only
+
+# Filter by port
+ss -tn dst :80                  # Connections to port 80
+ss -tn src :54321               # From local port
+
+# Filter by IP
+ss -tn dst 192.168.1.100        # To specific IP
+ss -tn src 192.168.1.100        # From specific IP
+
+# Count by state
+ss -tan | awk 'NR>1 {print $1}' | sort | uniq -c
+
+# Real-time monitoring
+watch -n 1 'ss -tn'            # Update every second
+watch -n 5 'ss -s'             # Update summary
+
+# Find specific connections
+ss -tnp | grep :443            # HTTPS connections
+ss -tnp | grep ESTAB           # Established connections
+
+# Real-world monitoring
+# Step 1: Check connection summary
+ss -s
+
+# Step 2: Check connection states
+ss -tan | awk 'NR>1 {print $1}' | sort | uniq -c
+
+# Step 3: Find connections to specific service
+ss -tnp | grep nginx
+
+# Step 4: Monitor in real-time
+watch -n 5 'ss -s'
+```
+
+---
+
+## Q9. What is Firewall and How to Configure (iptables, ufw)?
+
+### **Definition**
+Firewall - Security system that controls incoming and outgoing network traffic.
+
+### **Explain (Detail - Interview Answer)**
+
+**What is Firewall?**
+```
+Firewall:
+- Network security system
+- Controls traffic based on rules
+- Allows or blocks connections
+- Protects server from unauthorized access
+
+How it works:
+1. Network packet arrives
+2. Firewall checks rules
+3. If rule says allow → packet passes
+4. If rule says block → packet dropped
+
+Like a security guard at building entrance:
+- Checks everyone entering/exiting
+- Allows authorized people
+- Blocks unauthorized people
+```
+
+**iptables (Low-level):**
+```
+What is it?
+- Linux kernel firewall
+- Very powerful and flexible
+- Complex syntax
+- Used on most Linux systems
+
+Concepts:
+- Tables: Collection of chains
+- Chains: List of rules (INPUT, OUTPUT, FORWARD)
+- Rules: Conditions and actions
+- Targets: What to do (ACCEPT, DROP, REJECT)
+```
+
+**Basic iptables Commands:**
+```bash
+# View current rules
+sudo iptables -L -n -v
+# -L: List rules
+# -n: Numeric (don't resolve names)
+# -v: Verbose (show packet counts)
+
+# View specific chain
+sudo iptables -L INPUT -n -v
+
+# Common chains:
+# INPUT    → Incoming traffic to your server
+# OUTPUT   → Outgoing traffic from your server
+# FORWARD  → Traffic passing through (router/gateway)
+```
+
+**iptables Rules:**
+```bash
+# Allow SSH (port 22)
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+# -A INPUT  → Append to INPUT chain
+# -p tcp    → Protocol is TCP
+# --dport 22 → Destination port 22
+# -j ACCEPT → Jump to ACCEPT (allow)
+
+# Allow HTTP (port 80)
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+
+# Allow HTTPS (port 443)
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Drop all other incoming traffic
+sudo iptables -A INPUT -j DROP
+
+# Delete rule (by line number)
+sudo iptables -D INPUT 3           # Delete rule 3
+
+# Flush all rules (clear all)
+sudo iptables -F
+
+# Save rules (persist after reboot)
+sudo iptables-save > /etc/iptables/rules.v4
+```
+
+**ufw (Uncomplicated Firewall - Easy):**
+```
+What is it?
+- Simplified firewall for Ubuntu/Debian
+- Easy to use
+- Good for beginners
+- Frontend for iptables
+
+Why use ufw?
+- Simple commands
+- Easy to understand
+- Good for most use cases
+```
+
+**ufw Commands:**
+```bash
+# Enable/disable firewall
+sudo ufw enable                   # Enable firewall
+sudo ufw disable                  # Disable firewall
+sudo ufw status                   # Check status
+
+# Allow services
+sudo ufw allow ssh                # Allow SSH (port 22)
+sudo ufw allow http               # Allow HTTP (port 80)
+sudo ufw allow https              # Allow HTTPS (port 443)
+
+# Allow specific port
+sudo ufw allow 8080/tcp          # Allow port 8080 TCP
+sudo ufw allow 3306               # Allow MySQL
+
+# Deny port
+sudo ufw deny 23                  # Block Telnet
+
+# Allow from specific IP
+sudo ufw allow from 192.168.1.100
+sudo ufw allow from 192.168.1.0/24 to any port 22
+
+# Delete rule
+sudo ufw delete allow 8080
+
+# Reset to defaults
+sudo ufw reset
+
+# Show numbered rules
+sudo ufw status numbered
+```
+
+**Interview Answer Example:**
+```
+Interviewer: How do you configure firewall on Linux?
+
+Your Answer:
+"On Ubuntu systems, I use 'ufw' which is simpler. I start with 'sudo
+ufw enable' to turn on the firewall, then allow specific ports like
+SSH with 'sudo ufw allow ssh', HTTP with 'sudo ufw allow http', and
+HTTPS with 'sudo ufw allow https'.
+
+On other systems, I use 'iptables' which is more powerful but
+complex. For example, to allow SSH I use 'sudo iptables -A INPUT -p
+tcp --dport 22 -j ACCEPT'. I always make sure to allow SSH before
+enabling the firewall so I don't lock myself out."
+```
+
+**Important: Don't Lock Yourself Out!**
+```
+✅ ALWAYS do this before enabling firewall:
+1. Allow SSH (port 22) FIRST
+2. Then enable firewall
+3. Test SSH connection
+4. If fails, you need console access to fix
+
+Wrong way:
+ufw enable           # Blocks everything!
+ufw allow ssh        # Too late if you're locked out
+
+Right way:
+ufw allow ssh        # Allow SSH first
+ufw enable           # Then enable
+# Test SSH connection
+# If still can connect → Good!
+```
+
+**Common Firewall Rules:**
+```bash
+# Basic server firewall
+sudo ufw default deny incoming      # Block all incoming
+sudo ufw default allow outgoing       # Allow all outgoing
+sudo ufw allow ssh                   # Allow SSH
+sudo ufw allow http                  # Allow web server
+sudo ufw allow https                 # Allow secure web
+sudo ufw enable                      # Enable firewall
+
+# Web server only
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw deny 22                     # Block SSH if not needed
+
+# Database server
+sudo ufw allow from 192.168.1.0/24 to any port 3306
+```
+
+### **Use**
+- **Security**: Protect server from unauthorized access
+- **Access Control**: Allow only necessary ports
+- **Network Security**: Block malicious traffic
+- **Compliance**: Meet security requirements
+- **Monitoring**: Track allowed/blocked traffic
+
+### **Command**
+```bash
+# ufw (Ubuntu/Debian - recommended)
+sudo ufw enable                   # Enable firewall
+sudo ufw disable                  # Disable firewall
+sudo ufw status                   # Check status
+sudo ufw status numbered          # Show numbered rules
+
+# Allow services/ports
+sudo ufw allow ssh                # Allow SSH
+sudo ufw allow 22                 # Allow port 22
+sudo ufw allow http               # Allow HTTP (80)
+sudo ufw allow https              # Allow HTTPS (443)
+sudo ufw allow 8080/tcp          # Allow specific port
+
+# Deny
+sudo ufw deny 23                  # Block Telnet
+sudo ufw deny from 192.168.1.50  # Block specific IP
+
+# Allow from specific network
+sudo ufw allow from 192.168.1.0/24
+sudo ufw allow from 192.168.1.0/24 to any port 22
+
+# Delete rules
+sudo ufw delete allow 8080
+sudo ufw delete 1                 # Delete rule number 1
+
+# Reset
+sudo ufw reset                    # Reset to defaults
+
+# iptables (all systems)
+sudo iptables -L -n -v            # List rules
+sudo iptables -F                  # Flush (clear) all
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+sudo iptables -A INPUT -j DROP
+sudo iptables-save > /etc/iptables/rules.v4
+
+# Real-world setup
+# Step 1: Set defaults
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+# Step 2: Allow necessary ports
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+
+# Step 3: Enable firewall
+sudo ufw enable
+
+# Step 4: Verify
+sudo ufw status
+
+# Step 5: Test SSH connection
+ssh user@server
+```
+
+---
+
+## Q10. What is ARP and How to View ARP Table?
 
 ### **Definition**
 ARP (Address Resolution Protocol) - Maps IP addresses to MAC addresses on local network.
 
-### **Explain (Detail)**
+### **Explain (Detail - Interview Answer)**
 
-**What is ARP:**
-- Resolves IP to MAC address
-- Only works on local network (same subnet)
-- Like phone directory for local network
+**What is ARP?**
+```
+ARP (Address Resolution Protocol):
+- Maps IP addresses to MAC addresses
+- Works on local network only
+- Essential for Ethernet communication
 
-**MAC Address:**
-- Unique hardware address
-- Format: 00:11:22:33:44:55
-- Assigned to network card
-- Never changes
+Why do we need it?
+- Devices communicate using MAC addresses on Ethernet
+- But we use IP addresses to identify devices
+- ARP converts IP → MAC
+
+Example:
+You want to communicate with 192.168.1.100
+Your computer needs the MAC address of 192.168.1.100
+ARP finds it: "Who has 192.168.1.100?"
+192.168.1.100 replies: "I have it, my MAC is 00:11:22:33:44:55"
+Now your computer can send data to that MAC address
+```
 
 **How ARP Works:**
 ```
-1. Computer wants to talk to 192.168.1.100
-2. Checks ARP table for MAC of 192.168.1.100
-3. If found, use MAC directly
-4. If not found, broadcast: "Who has 192.168.1.100?"
-5. 192.168.1.100 replies: "I have it, my MAC is 00:11:22:33:44:55"
-6. Save in ARP table for future use
+Step 1: Computer A wants to send to IP 192.168.1.100
+Step 2: Check ARP cache (already know MAC?)
+Step 3: If not, broadcast ARP request
+Step 4: All devices receive: "Who has 192.168.1.100?"
+Step 5: 192.168.1.100 replies: "I have it, MAC is 00:11:22:33:44:55"
+Step 6: Computer A updates ARP cache
+Step 7: Computer A sends data to MAC 00:11:22:33:44:55
 ```
 
 **View ARP Table:**
-```
-arp -a or ip neigh show
-Shows: IP address → MAC address
+```bash
+# View ARP table
+arp -a
+
+# Output:
+# ? (192.168.1.1) at 00:11:22:33:44:55 [ether] on eth0
+# ? (192.168.1.100) at aa:bb:cc:dd:ee:ff [ether] on eth0
+#  │      │               │                  │        │
+#  │      │               │                  │        └─ Interface
+#  │      │               │                  └─ Connection type
+#  │      │               └───────────────────── MAC address
+#  │      └─────────────────────────────────── IP address
+#  └─────────────────────────────────────────── Host type (? = dynamic)
 ```
 
-**ARP Table Entry:**
-```
-192.168.1.1  dev eth0  lladdr 00:11:22:33:44:55 REACHABLE
-IP          Interface  MAC Address         State
+**ip neigh (Modern Command):**
+```bash
+# View neighbor cache (ARP table)
+ip neigh show
+ip n                           # Short form
+
+# Output:
+# 192.168.1.1 dev eth0 lladdr 00:11:22:33:44:55 REACHABLE
+# 192.168.1.100 dev eth0 lladdr aa:bb:cc:dd:ee:ff STALE
+#              │      │                    │
+#              │      │                    └─ State
+#              │      └─────────────────────── MAC address
+#              └────────────────────────────── Interface
+
+# States:
+# REACHABLE   → Active, recent communication
+# STALE       → Old entry, needs verification
+# FAILED      → Can't reach device
 ```
 
-**ARP States:**
-```
-REACHABLE  - Can communicate
-STALE      - Old entry, needs refresh
-FAILED     - Can't reach
-DELAY      - Waiting for reply
+**ARP Cache Management:**
+```bash
+# Add static ARP entry
+sudo arp -s 192.168.1.100 00:11:22:33:44:55
+
+# Delete ARP entry
+sudo arp -d 192.168.1.100
+
+# Clear ARP cache
+sudo ip neigh flush all
+
+# View detailed ARP
+arp -n
+arp -vn
 ```
 
-**When to Use ARP:**
-- Find MAC address of device
-- Troubleshoot local network
-- Identify devices by MAC
-- Clear ARP table to force refresh
-- Find duplicate IP issues
+**Interview Answer Example:**
+```
+Interviewer: What is ARP and how do you check the ARP table?
+
+Your Answer:
+"ARP stands for Address Resolution Protocol. It maps IP addresses to
+MAC addresses on a local network. When my computer wants to communicate
+with another device on the same network, it needs the MAC address, not
+just the IP address. ARP finds this mapping.
+
+To view the ARP table, I use 'arp -a' or the modern 'ip neigh show'
+command. This shows all the IP to MAC mappings my computer has learned,
+along with the state of each entry (REACHABLE, STALE, etc.).
+
+I can also clear the ARP cache with 'ip neigh flush all' if needed,
+which forces the system to relearn all ARP entries."
+```
 
 **Real-World Scenarios:**
 
-**Find MAC of router:**
-```
-arp -a | grep 192.168.1.1
-Shows router's MAC address
+**Scenario 1: Device not responding**
+```bash
+# Check if MAC is correct
+arp -a | grep 192.168.1.100
+
+# Clear ARP and try again
+sudo ip neigh flush all
+ping 192.168.1.100
+
+# Check new ARP entry
+ip neigh show | grep 192.168.1.100
 ```
 
-**Clear ARP table:**
+**Scenario 2: Duplicate IP detected**
+```bash
+# Check ARP table for duplicate MACs
+arp -a
+
+# If same MAC has multiple IPs → duplicate IP problem
 ```
-sudo ip neigh flush all
-Forces ARP to relearn all entries
+
+**Scenario 3: Static ARP for security**
+```bash
+# Add static entry for important server
+sudo arp -s 192.168.1.10 00:11:22:33:44:55
+
+# Now ARP spoofing won't work for this IP
 ```
 
 ### **Use**
-- **Local Network**: Find MAC addresses
-- **Troubleshooting**: Network layer 2 issues
-- **Security**: Identify devices on network
-- **Debugging**: ARP cache issues
-- **Inventory**: Track network devices
+- **Network Debugging**: Check IP-MAC mappings
+- **Troubleshooting**: Identify ARP issues
+- **Security**: Detect ARP spoofing
+- **Cache Management**: Clear stale entries
+- **Network Discovery**: See devices on local network
 
 ### **Command**
 ```bash
 # View ARP table
-arp -a
-arp -n                    # Numeric (no DNS)
-ip neigh                  # Modern command
-ip neigh show
+arp -a                          # All ARP entries
+arp -n                          # Numeric (no DNS)
+ip neigh show                   # Modern method
+ip n                            # Short form
 
-# Show specific IP
+# View specific IP
 arp -a | grep 192.168.1.1
 ip neigh show | grep 192.168.1.1
 
-# Show ARP for specific interface
-arp -i eth0 -a
-ip neigh show dev eth0
+# Manage ARP cache
+sudo arp -d 192.168.1.100        # Delete entry
+sudo ip neigh flush all          # Clear all ARP
+sudo ip neigh flush dev eth0     # Clear specific interface
 
-# Delete ARP entry
-sudo ip neigh del 192.168.1.100 dev eth0
+# Add static entry
+sudo arp -s 192.168.1.100 00:11:22:33:44:55
 
-# Clear entire ARP table
-sudo ip neigh flush all
-sudo ip neigh flush dev eth0
+# Detailed output
+arp -vn
 
-# Refresh ARP entry (ping)
-ping -c 1 192.168.1.100
-# Forces ARP refresh
+# Monitor ARP
+watch -n 2 'arp -a'
 
-# Show ARP with MAC address
+# Real-world troubleshooting
+# Step 1: Check ARP table
 arp -a
-# Output: ? (192.168.1.1) at 00:11:22:33:44:55 [ether] on eth0
 
-# Find MAC of gateway/router
-arp -a | grep default
-ip route | grep default
-# Then: arp -a | grep <gateway IP>
-
-# Show detailed ARP info
-ip neigh show
-
-# Add static ARP entry (rare)
-sudo ip neigh add 192.168.1.100 lladdr 00:11:22:33:44:55 dev eth0 nud permanent
-
-# Real-world: Find MAC of a device on network
-# Step 1: Ping device to populate ARP
-ping -c 1 192.168.1.100
-
-# Step 2: Check ARP table
+# Step 2: Find specific device
 arp -a | grep 192.168.1.100
 
-# Step 3: Get MAC address
-# Output: 00:11:22:33:44:55
-
-# Step 4: Use MAC to find device (check switch/dhcp logs)
-
-# Real-world: Can't connect to device on same network
-# Step 1: Ping device
-ping -c 3 192.168.1.100
-
-# Step 2: Check ARP table
-arp -a | grep 192.168.1.100
-
-# Step 3: If missing or FAILED, ARP issue
-# Step 4: Clear ARP and try again
+# Step 3: If wrong MAC, clear cache
 sudo ip neigh flush all
+
+# Step 4: Ping device to relearn ARP
 ping -c 1 192.168.1.100
 
-# Step 5: Check ARP again
-arp -a | grep 192.168.1.100
-```
-
----
-
-## Q9. How to View Routing Table?
-
-### **Definition**
-Routing table - Rules that determine where network packets are sent.
-
-### **Explain (Detail)**
-
-**What is Routing:**
-- Decides where to send network packets
-- Based on destination IP
-- Uses routes to find next hop
-
-**Routing Table Entry:**
-```
-Destination    Gateway         Genmask         Flags Metric Ref    Use Iface
-0.0.0.0        192.168.1.1     0.0.0.0         UG    100    0        0 eth0
-192.168.1.0    0.0.0.0         255.255.255.0   U     0      0        0 eth0
-```
-
-**Key Columns:**
-```
-Destination  - Where packets going
-Gateway       - Next hop (router)
-Genmask       - Network mask
-Flags         - Route flags (U=up, G=gateway)
-Metric        - Route priority (lower = preferred)
-Iface         - Which interface to use
-```
-
-**Default Route:**
-```
-Destination: 0.0.0.0
-Gateway: 192.168.1.1
-Means: Send everything not in table to 192.168.1.1 (router)
-```
-
-**Common Routes:**
-```
-Local network: 192.168.1.0/24
-Default route: 0.0.0.0/0 (via gateway)
-Loopback: 127.0.0.0/8
-```
-
-**How Routing Works:**
-```
-Packet to 192.168.1.100:
-1. Check routing table
-2. Find best matching route
-3. 192.168.1.0/24 matches (192.168.1.100 is in this network)
-4. Send via eth0 (direct, no gateway)
-
-Packet to 8.8.8.8 (Google DNS):
-1. Check routing table
-2. No specific match for 8.8.8.8
-3. Use default route 0.0.0.0
-4. Send via gateway 192.168.1.1
-```
-
-**When to Check Routing:**
-- Can't connect to external network
-- Packet routing issues
-- Multiple network interfaces
-- VPN configuration
-- Gateway problems
-
-### **Use**
-- **Troubleshooting**: Can't reach external network
-- **Configuration**: Add routes for specific networks
-- **Debugging**: Verify packets taking correct path
-- **VPN**: Check VPN routing
-- **Multi-homed**: Multiple network interfaces
-
-### **Command**
-```bash
-# View routing table
-ip route
-ip route show
-route -n
-
-# View default route
-ip route | grep default
-route -n | grep 0.0.0.0
-
-# View route to specific network
-ip route get 8.8.8.8
-ip route get 192.168.1.100
-
-# Add route (temporary)
-sudo ip route add 192.168.2.0/24 via 192.168.1.1
-
-# Add default route
-sudo ip route add default via 192.168.1.1
-
-# Delete route
-sudo ip route del 192.168.2.0/24 via 192.168.1.1
-
-# Clear routing table (DANGER!)
-sudo ip route flush table main
-
-# Show route cache
-ip route show cache
-
-# View specific interface routes
-ip route show dev eth0
-
-# Real-world: Can't connect to internet
-# Step 1: Check routing table
-ip route
-
-# Step 2: Check default route exists
-ip route | grep default
-# Should see: default via 192.168.1.1 dev eth0
-
-# Step 3: If missing, add default route
-sudo ip route add default via 192.168.1.1
-
-# Step 4: Test
-ping -c 1 8.8.8.8
-
-# Real-world: Add route to specific network
-# Scenario: Network 10.0.0.0/24 reachable via 192.168.1.254
-
-# Step 1: Add route
-sudo ip route add 10.0.0.0/24 via 192.168.1.254
-
-# Step 2: Verify
-ip route | grep 10.0.0.0
-
-# Step 3: Test
-ping -c 1 10.0.0.1
-
-# Real-world: Multiple network interfaces
-# Step 1: View all routes
-ip route
-
-# Step 2: See which interface packets use
-ip route get 8.8.8.8
-# Shows: dev eth0 src 192.168.1.100
-
-# Step 3: Check interface IPs
-ip addr show
-
-# Step 4: Verify routing correct
-```
-
----
-
-## Q10. How to Download Files from Internet (wget, curl)?
-
-### **Definition**
-Commands to download files and make HTTP requests from command line.
-
-### **Explain (Detail)**
-
-**wget:**
-- Simple file downloader
-- Download files from URL
-- Resumes interrupted downloads
-- Recursive download (mirror websites)
-
-**curl:**
-- Multi-purpose tool
-- Upload and download
-- Supports many protocols
-- Great for API calls
-
-**wget Basic Usage:**
-```
-wget http://example.com/file.zip
-wget https://example.com/file.tar.gz
-```
-
-**curl Basic Usage:**
-```
-curl http://example.com/file.zip -O
-curl -o file.zip http://example.com/file.zip
-```
-
-**Common Options:**
-
-**wget:**
-```
--O filename    - Save as filename
--c            - Resume interrupted download
--r            - Recursive (mirror site)
--b            - Background
--q            - Quiet
-```
-
-**curl:**
-```
--o filename    - Save to filename
--O             - Save as remote filename
--L             - Follow redirects
--I             - Headers only (HEAD request)
--X POST        - HTTP POST method
--d data        - Send data (POST)
--H header      - Add header
-```
-
-**When to Use:**
-- **wget**: Download files, mirror websites
-- **curl**: API calls, test HTTP requests, upload files
-
-**Real-World Examples:**
-
-**Download file:**
-```
-wget https://example.com/file.zip
-curl -O https://example.com/file.zip
-```
-
-**Download with custom name:**
-```
-wget -O myfile.zip https://example.com/file.zip
-curl -o myfile.zip https://example.com/file.zip
-```
-
-**Resume download:**
-```
-wget -c https://example.com/largefile.iso
-```
-
-**Check if URL exists:**
-```
-curl -I https://example.com/file.zip
-# Returns HTTP headers, shows if 200 OK or 404 Not Found
-```
-
-### **Use**
-- **Downloads**: Get files from internet
-- **Automation**: Download scripts, updates
-- **APIs**: Test REST APIs
-- **Testing**: Check HTTP endpoints
-- **Monitoring**: Download and check files
-
-### **Command**
-```bash
-# wget - download files
-wget http://example.com/file.zip
-wget https://example.com/file.tar.gz
-
-# Save with custom name
-wget -O myfile.zip http://example.com/file.zip
-
-# Resume interrupted download
-wget -c http://example.com/largefile.iso
-
-# Background download
-wget -b http://example.com/largefile.iso
-
-# Quiet download
-wget -q http://example.com/file.zip
-
-# Recursive download (mirror site)
-wget -r -np -k http://example.com/
-
-# curl - download files
-curl -O http://example.com/file.zip
-curl -o myfile.zip http://example.com/file.zip
-
-# Follow redirects
-curl -L http://example.com/redirected -O
-
-# Check HTTP status
-curl -I http://example.com/file.zip
-curl -w "%{http_code}" http://example.com -o /dev/null
-
-# Download with progress
-curl -O http://example.com/file.zip
-
-# Resume download (curl)
-curl -C - -O http://example.com/largefile.iso
-
-# Test if URL exists
-curl -I http://example.com/file.zip
-# Look for: HTTP/1.1 200 OK (exists) or 404 Not Found
-
-# Download with authentication
-wget --user=username --password=pass http://example.com/file.zip
-curl -u username:password -O http://example.com/file.zip
-
-# Download from GitHub releases
-wget https://github.com/user/repo/releases/download/v1.0/file.zip
-curl -L -O https://github.com/user/repo/releases/download/v1.0/file.zip
-
-# Real-world: Download and extract application
-# Step 1: Download
-wget https://example.com/app.tar.gz
-
-# Step 2: Extract
-tar -xzf app.tar.gz
-
-# Step 3: Install
-cd app
-sudo ./install.sh
-
-# Real-world: Download script and run
-# Step 1: Download
-curl -O https://example.com/install.sh
-wget https://example.com/install.sh
-
-# Step 2: Make executable
-chmod +x install.sh
-
-# Step 3: Run
-./install.sh
-
-# Real-world: Test API endpoint
-# Step 1: GET request
-curl -I https://api.example.com/status
-
-# Step 2: POST request
-curl -X POST -H "Content-Type: application/json" \
-     -d '{"key":"value"}' \
-     https://api.example.com/data
-
-# Step 3: Download response
-curl -O https://api.example.com/data.json
+# Step 5: Verify new entry
+ip neigh show | grep 192.168.1.100
 ```
 
 ---
@@ -1485,77 +2041,57 @@ curl -O https://api.example.com/data.json
 
 ### Network Configuration
 ```bash
-ip addr show                   # View IP addresses
-ip addr show eth0              # View specific interface
-ifconfig eth0                  # Old command (deprecated)
+ip addr show                    # View IP addresses
+ifconfig                        # Old method
+ip route show                   # View routes/gateway
 ```
 
-### Check Ports
+### DNS
 ```bash
-ss -tlnp                       # Show listening ports with process
-netstat -tlnp                  # Old command
-lsof -i :80                    # Show what's using port 80
+nslookup domain.com             # DNS lookup
+dig domain.com                  # Detailed DNS
+cat /etc/resolv.conf            # DNS servers
+ping domain.com                 # Test DNS
 ```
 
-### DNS Resolution
+### Connectivity
 ```bash
-cat /etc/hosts                 # View hosts file
-cat /etc/resolv.conf           # View DNS servers
-nslookup google.com            # Check DNS
-ping google.com                # Test DNS
+ping host                       # Test connectivity
+traceroute host                 # Trace path
+mtr host                       # Continuous trace
 ```
 
-### SSH Connection
+### Ports & Connections
 ```bash
-ssh user@server                # Connect to server
-ssh -p 2222 user@server        # Different port
-ssh-keygen -t rsa              # Generate keys
-ssh-copy-id user@server        # Copy key to server
+ss -tlnp                        # Listening ports
+ss -tunp                        # All connections
+netstat -tlnp                   # Old method
+lsof -i :port                   # Find process on port
 ```
 
-### Network Connectivity
+### SSH
 ```bash
-ping -c 4 google.com           # Test connectivity
-traceroute google.com          # Trace path
-mtr google.com                 # Modern traceroute
+ssh user@server                 # Connect
+ssh-keygen                      # Generate keys
+ssh-copy-id user@server        # Copy key
+scp file user@server:/path/    # Copy file
 ```
 
-### Process by Port
+### Firewall
 ```bash
-ss -tlnp | grep :80            # Find process on port 80
-lsof -i :80                    # Same with lsof
-netstat -tlnp | grep :80       # Old command
+sudo ufw status                 # Check firewall
+sudo ufw allow 22               # Allow port
+sudo ufw enable                 # Enable
+iptables -L -n -v               # View iptables
 ```
 
-### Network Connections
+### ARP
 ```bash
-ss -tan                        # All TCP connections
-ss -uan                        # All UDP connections
-ss -tanp                       # With process info
-netstat -tanp                  # Old command
-```
-
-### ARP Table
-```bash
-arp -a                         # View ARP table
-ip neigh                       # Modern command
-ip neigh flush all             # Clear ARP table
-```
-
-### Routing
-```bash
-ip route                       # View routing table
-route -n                       # Old command
-ip route get 8.8.8.8           # Trace route to IP
-```
-
-### Download Files
-```bash
-wget http://example.com/file.zip
-curl -O http://example.com/file.zip
-curl -I http://example.com    # Check headers
+arp -a                          # View ARP table
+ip neigh show                   # Modern ARP
+ip neigh flush all              # Clear ARP
 ```
 
 ---
 
-**Next:** Module 6 - Service, Boot & Systemctl
+**Next:** Module 6 - Services, Boot & Systemctl
