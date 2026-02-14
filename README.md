@@ -177,9 +177,29 @@ Choose your learning path below or browse by category:
 
 ---
 
+### Module 7: Security, Users & Access ⭐
+> Detailed but beginner-friendly guide for interview preparation
+
+**📄 [Module 7: Security, Users & Access](Linux/Module7-Security-Users-Access.md)**
+
+**Questions:** 10 | **Commands Covered:** 60+
+
+**📋 Question Index:**
+1. [What is a User in Linux?](Linux/Module7-Security-Users-Access.md#q1-what-is-a-user-in-linux) - User basics
+2. [How to Create, Delete, and Modify Users?](Linux/Module7-Security-Users-Access.md#q2-how-to-create-delete-and-modify-users) - User management
+3. [What is a Group and How to Manage Groups?](Linux/Module7-Security-Users-Access.md#q3-what-is-a-group-and-how-to-manage-groups) - Group management
+4. [What is Sudo and How to Use It?](Linux/Module7-Security-Users-Access.md#q4-what-is-sudo-and-how-to-use-it) - Sudo basics
+5. [How to Manage Passwords?](Linux/Module7-Security-Users-Access.md#q5-how-to-manage-passwords) - Password management
+6. [Basic SSH Security Best Practices?](Linux/Module7-Security-Users-Access.md#q6-basic-ssh-security-best-practices) - SSH security
+7. [What are File Permissions and How to Set Them?](Linux/Module7-Security-Users-Access.md#q7-what-are-file-permissions-and-how-to-set-them) - File permissions
+8. [How to Switch Users (su, sudo -i, sudo su)?](Linux/Module7-Security-Users-Access.md#q8-how-to-switch-users-su-sudo-i-sudo-su) - User switching
+9. [What are /etc/passwd, /etc/shadow, /etc/group?](Linux/Module7-Security-Users-Access.md#q9-what-are-etcpasswd-etcshadow-etcgroup) - User files
+10. [Basic Security Best Practices for Beginners?](Linux/Module7-Security-Users-Access.md#q10-basic-security-best-practices-for-beginners) - Security practices
+
+---
+
 ### Upcoming Linux Modules 🚧
 
-- **Module 7:** Security, Users & Access
 - **Module 8:** Scheduling & Automation
 - **Module 9:** Shell Scripting
 - **Module 10:** Troubleshooting & Scenarios
@@ -436,12 +456,12 @@ Choose your learning path below or browse by category:
 - [x] Module 4: Disk, Filesystem & Storage (8 questions)
 - [x] Module 5: Networking & Connectivity (10 questions)
 - [x] Module 6: Services, Boot & Systemctl (10 questions)
-- [ ] Module 7: Security, Users & Access
+- [x] Module 7: Security, Users & Access (10 questions)
 - [ ] Module 8: Scheduling & Automation
 - [ ] Module 9: Shell Scripting
 - [ ] Module 10: Troubleshooting & Scenarios
 
-**Total Linux Questions Completed:** 72
+**Total Linux Questions Completed:** 82
 
 ### Other Topics
 - [ ] AWS Fundamentals
@@ -495,10 +515,10 @@ For questions or clarifications:
 **Last Updated:** January 15, 2024
 
 **📊 Repository Stats:**
-- **Total Modules:** 6 (Linux)
-- **Total Questions:** 72
-- **Total Commands:** 390+
-- **Quick Links:** 72 direct links to questions
+- **Total Modules:** 7 (Linux)
+- **Total Questions:** 82
+- **Total Commands:** 440+
+- **Quick Links:** 82 direct links to questions
 
 **Happy Learning! 🚀**
 
