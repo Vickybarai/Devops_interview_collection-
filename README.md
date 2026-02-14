@@ -135,9 +135,33 @@ Choose your learning path below or browse by category:
 
 ---
 
+### Module 5: Networking & Connectivity ⭐
+> Configure, troubleshoot, and monitor network connections
+
+**📄 [Module 5: Networking & Connectivity](Linux/Module5-Networking-Connectivity.md)**
+
+**Questions:** 14 | **Commands Covered:** 90+
+
+**📋 Question Index:**
+1. [How to Configure Network Interface (ip, ifconfig, nmcli)?](Linux/Module5-Networking-Connectivity.md#q1-how-to-configure-network-interface-ip-ifconfig-nmcli) - Network config
+2. [How to Check Open Ports and List Services (netstat, ss)?](Linux/Module5-Networking-Connectivity.md#q2-how-to-check-open-ports-and-list-services-netstat-ss) - Port monitoring
+3. [How Does DNS Resolution Work (/etc/hosts, /etc/resolv.conf)?](Linux/Module5-Networking-Connectivity.md#q3-how-does-dns-resolution-work-etchosts-etcresolvconf) - DNS setup
+4. [SSH Keys and Authentication - How Does It Work?](Linux/Module5-Networking-Connectivity.md#q4-ssh-keys-and-authentication---how-does-it-work) - SSH access
+5. [How to Configure Firewall (iptables, ufw, firewalld)?](Linux/Module5-Networking-Connectivity.md#q5-how-to-configure-firewall-iptables-ufw-firewalld) - Firewall config
+6. [Network Troubleshooting Commands (ping, traceroute, mtr)?](Linux/Module5-Networking-Connectivity.md#q6-network-troubleshooting-commands-ping-traceroute-mtr) - Network debug
+7. [How to Find Process Using Specific Port?](Linux/Module5-Networking-Connectivity.md#q7-how-to-find-process-using-specific-port) - Port process
+8. [How to Check Network Connections and Traffic?](Linux/Module5-Networking-Connectivity.md#q8-how-to-check-network-connections-and-traffic) - Traffic monitoring
+9. [What is ARP Table and How to View It?](Linux/Module5-Networking-Connectivity.md#q9-what-is-arp-table-and-how-to-view-it) - ARP table
+10. [How to Check and Modify Routing Table?](Linux/Module5-Networking-Connectivity.md#q10-how-to-check-and-modify-routing-table) - Routing
+11. [How to Monitor Bandwidth and Network Performance?](Linux/Module5-Networking-Connectivity.md#q11-how-to-monitor-bandwidth-and-network-performance) - Bandwidth
+12. [DNS Troubleshooting (dig, nslookup, host)?](Linux/Module5-Networking-Connectivity.md#q12-dns-troubleshooting-dig-nslookup-host) - DNS debug
+13. [How to Capture and Analyze Network Traffic (tcpdump, Wireshark)?](Linux/Module5-Networking-Connectivity.md#q13-how-to-capture-and-analyze-network-traffic-tcpdump-wireshark) - Packet capture
+14. [How to Check Network Interface Details and Configuration?](Linux/Module5-Networking-Connectivity.md#q14-how-to-check-network-interface-details-and-configuration) - Interface details
+
+---
+
 ### Upcoming Linux Modules 🚧
 
-- **Module 5:** Networking & Connectivity
 - **Module 6:** Service, Boot & Systemctl
 - **Module 7:** Security, Users & Access
 - **Module 8:** Scheduling & Automation
@@ -394,14 +418,14 @@ Choose your learning path below or browse by category:
 - [x] Module 2: File Management & Permissions (14 questions)
 - [x] Module 3: Process & System Management (12 questions)
 - [x] Module 4: Disk, Filesystem & Storage (8 questions)
-- [ ] Module 5: Networking & Connectivity
+- [x] Module 5: Networking & Connectivity (14 questions)
 - [ ] Module 6: Service, Boot & Systemctl
 - [ ] Module 7: Security, Users & Access
 - [ ] Module 8: Scheduling & Automation
 - [ ] Module 9: Shell Scripting
 - [ ] Module 10: Troubleshooting & Scenarios
 
-**Total Linux Questions Completed:** 52
+**Total Linux Questions Completed:** 66
 
 ### Other Topics
 - [ ] AWS Fundamentals
@@ -455,10 +479,10 @@ For questions or clarifications:
 **Last Updated:** January 15, 2024
 
 **📊 Repository Stats:**
-- **Total Modules:** 4 (Linux)
-- **Total Questions:** 52
-- **Total Commands:** 260+
-- **Quick Links:** 52 direct links to questions
+- **Total Modules:** 5 (Linux)
+- **Total Questions:** 66
+- **Total Commands:** 350+
+- **Quick Links:** 66 direct links to questions
 
 **Happy Learning! 🚀**
 
