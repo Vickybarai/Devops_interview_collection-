@@ -156,9 +156,29 @@ Choose your learning path below or browse by category:
 
 ---
 
+### Module 6: Services, Boot & Systemctl ⭐
+> Basic service management for beginners
+
+**📄 [Module 6: Services, Boot & Systemctl](Linux/Module6-Services-Boot-Systemctl.md)**
+
+**Questions:** 10 | **Commands Covered:** 50+
+
+**📋 Question Index:**
+1. [What is a Service in Linux?](Linux/Module6-Services-Boot-Systemctl.md#q1-what-is-a-service-in-linux) - Service basics
+2. [What is systemctl and How to Use It?](Linux/Module6-Services-Boot-Systemctl.md#q2-what-is-systemctl-and-how-to-use-it) - Service control
+3. [How to Start, Stop, and Restart Services?](Linux/Module6-Services-Boot-Systemctl.md#q3-how-to-start-stop-and-restart-services) - Service lifecycle
+4. [How to Check Service Status?](Linux/Module6-Services-Boot-Systemctl.md#q4-how-to-check-service-status) - Status checking
+5. [How to Enable/Disable Services at Boot?](Linux/Module6-Services-Boot-Systemctl.md#q5-how-to-enabledisable-services-at-boot) - Boot control
+6. [How to View Service Logs?](Linux/Module6-Services-Boot-Systemctl.md#q6-how-to-view-service-logs) - Log viewing
+7. [What is systemd (Basic)?](Linux/Module6-Services-Boot-Systemctl.md#q7-what-is-systemd-basic) - Init system
+8. [What is the Linux Boot Process (Basic)?](Linux/Module6-Services-Boot-Systemctl.md#q8-what-is-the-linux-boot-process-basic) - Boot sequence
+9. [How to Troubleshoot a Service That Won't Start?](Linux/Module6-Services-Boot-Systemctl.md#q9-how-to-troubleshoot-a-service-that-wont-start) - Troubleshooting
+10. [Common Services You Should Know (nginx, apache, ssh, mysql)](Linux/Module6-Services-Boot-Systemctl.md#q10-common-services-you-should-know-nginx-apache-ssh-mysql) - Common services
+
+---
+
 ### Upcoming Linux Modules 🚧
 
-- **Module 6:** Service, Boot & Systemctl
 - **Module 7:** Security, Users & Access
 - **Module 8:** Scheduling & Automation
 - **Module 9:** Shell Scripting
@@ -415,13 +435,13 @@ Choose your learning path below or browse by category:
 - [x] Module 3: Process & System Management (12 questions)
 - [x] Module 4: Disk, Filesystem & Storage (8 questions)
 - [x] Module 5: Networking & Connectivity (10 questions)
-- [ ] Module 6: Service, Boot & Systemctl
+- [x] Module 6: Services, Boot & Systemctl (10 questions)
 - [ ] Module 7: Security, Users & Access
 - [ ] Module 8: Scheduling & Automation
 - [ ] Module 9: Shell Scripting
 - [ ] Module 10: Troubleshooting & Scenarios
 
-**Total Linux Questions Completed:** 62
+**Total Linux Questions Completed:** 72
 
 ### Other Topics
 - [ ] AWS Fundamentals
@@ -475,10 +495,10 @@ For questions or clarifications:
 **Last Updated:** January 15, 2024
 
 **📊 Repository Stats:**
-- **Total Modules:** 5 (Linux)
-- **Total Questions:** 62
-- **Total Commands:** 320+
-- **Quick Links:** 62 direct links to questions
+- **Total Modules:** 6 (Linux)
+- **Total Questions:** 72
+- **Total Commands:** 390+
+- **Quick Links:** 72 direct links to questions
 
 **Happy Learning! 🚀**
 
